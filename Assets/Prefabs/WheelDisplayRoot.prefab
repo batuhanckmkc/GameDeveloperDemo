@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3111745986036093819}
+  - component: {fileID: 3970694560038307917}
   - component: {fileID: 3111745986036093798}
   - component: {fileID: 3111745986036093797}
   - component: {fileID: 3111745986036093796}
@@ -32,13 +33,26 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3111745986680338411}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 134, y: 134}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3970694560038307917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3111745986036093818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 155db8f4605c4ebdb37cc6eba07bdfad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 3111745986036093796}
 --- !u!222 &3111745986036093798
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -152,7 +166,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3111745986680338411}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -206,6 +220,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3111745986597725163}
+  - component: {fileID: 4750435117343651700}
   - component: {fileID: 3111745986597725141}
   - component: {fileID: 3111745986597725140}
   m_Layer: 5
@@ -235,6 +250,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 485, y: 485}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4750435117343651700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3111745986597725162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e18856d9854b96ac1bd31779b91211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wheel: {fileID: 3111745986597725163}
+  indicator: {fileID: 3111745986323068516}
+  spinButton: {fileID: 3970694560038307917}
 --- !u!222 &3111745986597725141
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -283,6 +313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3111745986680338411}
   - component: {fileID: 3111745986680338389}
+  - component: {fileID: 5633749757970685144}
   m_Layer: 5
   m_Name: WheelDisplayRoot
   m_TagString: Untagged
@@ -303,8 +334,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3111745986597725163}
-  - {fileID: 3111745986036093819}
   - {fileID: 3111745986323068516}
+  - {fileID: 3111745986036093819}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -321,3 +352,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3111745986680338410}
   m_CullTransparentMesh: 1
+--- !u!114 &5633749757970685144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3111745986680338410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e32faaf67bdd486283eac369702dd288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wheelView: {fileID: 4750435117343651700}
