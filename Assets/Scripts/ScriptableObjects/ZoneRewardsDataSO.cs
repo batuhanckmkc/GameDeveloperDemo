@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using GameDeveloperDemo.Model;
 using UnityEngine;
 
-namespace ScriptableObjects
+namespace GameDeveloperDemo.ScriptableObjects
 {
     [CreateAssetMenu(fileName = "ZoneRewardsData", menuName = "Create Zone Rewards Data")]
     public class ZoneRewardsDataSO : ScriptableObject

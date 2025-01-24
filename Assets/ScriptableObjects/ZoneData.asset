@@ -18,12 +18,12 @@ MonoBehaviour:
     pointerSprite: {fileID: 21300000, guid: ff48db6869fa6400c9ffc1e9cce131af, type: 3}
     zoneRewardsDataSo: {fileID: 11400000, guid: 29e02ebd049d84d62b77b303006cffe7, type: 2}
     activationAmount: 1
-  - zoneType: 5
+  - zoneType: 1
     wheelSprite: {fileID: 21300000, guid: db4ebd654e37d43968b8f3d92f12a2c9, type: 3}
     pointerSprite: {fileID: 21300000, guid: 146fd1f24fb5148c8b0e266f9eee3fa0, type: 3}
     zoneRewardsDataSo: {fileID: 11400000, guid: 0424cba4c6d674806b1be2675a806f7d, type: 2}
     activationAmount: 3
-  - zoneType: 10
+  - zoneType: 2
     wheelSprite: {fileID: 21300000, guid: 3a681d19ebb3048b1b09441b8d25a8d7, type: 3}
     pointerSprite: {fileID: 21300000, guid: f73717cdadadc4632bf99e51b48d1a25, type: 3}
     zoneRewardsDataSo: {fileID: 11400000, guid: 6016c4b90736e4a598f3ce906b120d96, type: 2}

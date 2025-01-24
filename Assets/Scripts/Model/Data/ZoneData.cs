@@ -1,4 +1,4 @@
-using ScriptableObjects;
+using GameDeveloperDemo.ScriptableObjects;
 using UnityEngine;
 
 namespace GameDeveloperDemo.Model

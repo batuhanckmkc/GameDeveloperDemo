@@ -1,25 +1,25 @@
 using System;
 using GameDeveloperDemo.Model;
+using GameDeveloperDemo.ScriptableObjects;
 using GameDeveloperDemo.View;
-using ScriptableObjects;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace GameDeveloperDemo.Controller
 {
     public class WheelController : MonoBehaviour
     {
         [SerializeField] private WheelView wheelView;
-        [SerializeField] private RewardItemGenerator rewardItemGenerator;
         [SerializeField] private RewardsDataSO rewardsDataSo;
         [SerializeField] private ZoneDataSO zoneDataSo;
         public static event Action OnSpinComplete;
         private WheelModel _wheelModel;
+        private RewardItemGenerator _rewardItemGenerator;
 
-        private void Start()
+        public void Initialize(RewardItemGenerator rewardItemGenerator)
         {
             _wheelModel = new WheelModel();
-            wheelView.SetRewardItems(rewardItemGenerator.GenerateRewards(wheelView.transform), zoneDataSo.GetZoneData(ZoneType.NormalZone));
+            _rewardItemGenerator = rewardItemGenerator;
+            wheelView.SetRewardItems(_rewardItemGenerator.GenerateRewards(wheelView.transform), zoneDataSo.GetZoneData(ZoneType.NormalZone));
         }
 
         private void OnEnable()
@@ -37,22 +37,25 @@ namespace GameDeveloperDemo.Controller
         private void OnSpinButtonClicked()
         {
             Debug.Log("Spin button clicked!");
-
-            var sliceCount = _wheelModel.SliceCount;
-            int randomSlice = Random.Range(0, sliceCount);
-            float targetAngle = randomSlice * (360f / sliceCount);
-            float spins = Random.Range(3, 5);
-            float finalAngle = spins * 360 + targetAngle;
-            float sliceAngle = 360f / sliceCount;
-
+            var sliceAngle = _wheelModel.GetSliceAngle();
+            var finalAngle = _wheelModel.GetFinalAngle();
             wheelView.CloseSpinButton();
-            wheelView.RotateWheel(sliceAngle, finalAngle, 3f, () =>
+            wheelView.RotateWheel(sliceAngle, finalAngle, 3f,() =>
             {
                 wheelView.OpenSpinButton();
                 OnSpinComplete?.Invoke();
+                
+                var stoppedReward = GetStoppedReward(finalAngle);
+                Debug.Log($"Wheel Stopped! ZoneRewardType: {stoppedReward.rewardConfigurationData.rewardType}, ZoneRewardAmount: {stoppedReward.amount}");
             });
         }
-
+        
+        private ZoneRewardData GetStoppedReward(float finalAngle)
+        {
+            int sliceIndex = _wheelModel.GetWheelPointerSliceIndex(finalAngle);
+            return wheelView.GetRewardAtIndex(sliceIndex);
+        }
+        
         private void OnZoneChange(ZoneData zoneData)
         {
             wheelView.SetView(zoneData);

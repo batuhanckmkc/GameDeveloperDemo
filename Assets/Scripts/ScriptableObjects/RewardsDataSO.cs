@@ -3,7 +3,7 @@ using System.Linq;
 using GameDeveloperDemo.Model;
 using UnityEngine;
 
-namespace ScriptableObjects
+namespace GameDeveloperDemo.ScriptableObjects
 {
     [CreateAssetMenu(fileName = "RewardsData", menuName = "Create Rewards Data")]
     public class RewardsDataSO : ScriptableObject

@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using GameDeveloperDemo.Model;
-using ScriptableObjects;
+using GameDeveloperDemo.ScriptableObjects;
+using GameDeveloperDemo.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,7 +21,6 @@ namespace GameDeveloperDemo.View
         
         #region Animation Values
 
-        private const float CircleAngle = 360f;
         private const float PointerMoveAngle = 45f;
         private const float TargetFPS = 60f;
 
@@ -47,14 +47,13 @@ namespace GameDeveloperDemo.View
         
         private void AnimatePointer(float sliceAngle, float duration)
         {
-            //float currentFPS = 1f / Time.deltaTime;
-            float currentAngle = wheel.transform.rotation.eulerAngles.z % CircleAngle;
+            float currentAngle = wheel.transform.rotation.eulerAngles.z % Constants.CircleAngle;
             int currentSliceIndex = Mathf.FloorToInt(currentAngle / sliceAngle);
             if (currentSliceIndex != _lastSliceIndex)
             {
                 _lastSliceIndex = currentSliceIndex;
                 float speed = Mathf.Abs(sliceAngle / (duration * TargetFPS));
-                pointer.transform.DORotate(new Vector3(0, 0, -PointerMoveAngle), speed)
+                pointer.transform.DORotate(new Vector3(0, 0, PointerMoveAngle), speed)
                     .SetEase(Ease.OutCubic)
                     .OnComplete(() =>
                     {
@@ -63,6 +62,11 @@ namespace GameDeveloperDemo.View
             }
         }
 
+        public ZoneRewardData GetRewardAtIndex(int rewardIndex)
+        {
+            return _rewardItems[rewardIndex].ZoneRewardData;
+        }
+        
         public void SetRewardItems(List<RewardItem> rewardItems, ZoneData zoneData)
         {
             _rewardItems = rewardItems;

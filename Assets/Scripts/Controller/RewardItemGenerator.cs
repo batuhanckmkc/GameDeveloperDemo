@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using GameDeveloperDemo.Model;
+using GameDeveloperDemo.ScriptableObjects;
+using GameDeveloperDemo.Utils;
 using GameDeveloperDemo.View;
-using ScriptableObjects;
 using UnityEngine;
 
 namespace GameDeveloperDemo.Controller
@@ -11,13 +12,12 @@ namespace GameDeveloperDemo.Controller
         [SerializeField] private ZoneRewardsDataSO zoneRewardsDataSo;
         [SerializeField] private RewardItem rewardItemPrefab;
         [SerializeField] private float radius = 250f;
-        private const float CircleAngle = 360f;
         
         public List<RewardItem> GenerateRewards(Transform parent)
         {
             List<RewardItem> rewardItems = new List<RewardItem>();
             List<ZoneRewardData> rewards = zoneRewardsDataSo.RewardModels;
-            float angleStep = CircleAngle / rewards.Count;
+            float angleStep = Constants.CircleAngle / rewards.Count;
             for (int i = 0; i < rewards.Count; i++)
             {
                 float angle = 90f - i * angleStep;
