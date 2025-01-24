@@ -16,12 +16,12 @@ namespace GameDeveloperDemo.Controller
         {
             _wheelModel = new WheelModel();
             wheelView.Initialize(OnSpinButtonClicked);
-            rewardItemGenerator.GenerateRewards();
+            rewardItemGenerator.GenerateRewards(wheelView.transform);
         }
 
         private void OnDestroy()
         {
-            wheelView.DeInitialize(OnSpinButtonClicked);
+            wheelView.Deinitialize(OnSpinButtonClicked);
         }
 
         private void OnSpinButtonClicked()
@@ -35,7 +35,11 @@ namespace GameDeveloperDemo.Controller
             float finalAngle = spins * 360 + targetAngle;
             float sliceAngle = 360f / sliceCount;
 
-            wheelView.RotateWheel(sliceAngle, finalAngle, 3f, null);
+            wheelView.CloseSpinButton();
+            wheelView.RotateWheel(sliceAngle, finalAngle, 3f, () =>
+            {
+                wheelView.OpenSpinButton();
+            });
         }
     }
 }

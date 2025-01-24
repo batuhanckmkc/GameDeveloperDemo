@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RewardsData
   m_EditorClassIdentifier: 
   rewardModels:
-  - RewardConfigurationData:
-      RewardType: 25
-      TierType: 0
+  - rewardConfigurationData:
+      rewardType: 25
+      tierType: 0
     sprite: {fileID: 21300000, guid: 1b016bb486caf48d89f3c15c5c13c851, type: 3}

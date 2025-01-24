@@ -11,27 +11,13 @@ namespace ScriptableObjects
         [SerializeField] private List<RewardData> rewardModels;
         public Sprite GetSprite(RewardType rewardType)
         {
-            foreach (var setItem in rewardModels.Where(setItem => setItem.RewardConfigurationData.RewardType == rewardType))
+            foreach (var rewardData in rewardModels.Where(setItem => setItem.rewardConfigurationData.rewardType == rewardType))
             {
-                return setItem.sprite;
+                return rewardData.sprite;
             }
             Debug.LogWarning("The targeted sprite could not be found.");
             return null;
         }
-    }
-    
-    [System.Serializable]
-    public class RewardData
-    {
-        public RewardConfigurationData RewardConfigurationData;
-        public Sprite sprite;
-    }
-
-    [System.Serializable]
-    public struct RewardConfigurationData
-    {
-        public RewardType RewardType;
-        public TierType TierType;
     }
 }
 

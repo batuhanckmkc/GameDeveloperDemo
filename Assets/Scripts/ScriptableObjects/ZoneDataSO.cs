@@ -1,0 +1,23 @@
+using System.Collections.Generic;
+using System.Linq;
+using GameDeveloperDemo.Model;
+using UnityEngine;
+
+namespace ScriptableObjects
+{
+    [CreateAssetMenu(fileName = "ZoneData", menuName = "Create Zone Data")]
+    public class ZoneDataSO : ScriptableObject
+    {
+        [SerializeField] private List<ZoneData> zoneConfigurations;
+
+        public ZoneData GetZoneData(ZoneType zoneType)
+        {
+            foreach (var zoneData in zoneConfigurations.Where(setItem => setItem.zoneType == zoneType))
+            {
+                return zoneData;
+            }
+            Debug.LogWarning("The targeted zone could not be found.");
+            return null;
+        }
+    }
+}

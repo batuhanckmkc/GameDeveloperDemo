@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using GameDeveloperDemo.Model;
 using UnityEngine;
 
 namespace ScriptableObjects
@@ -8,12 +9,5 @@ namespace ScriptableObjects
     {
         [SerializeField] private List<ZoneRewardData> rewardModels;
         public List<ZoneRewardData> RewardModels => rewardModels;
-    }
-    
-    [System.Serializable]
-    public class ZoneRewardData
-    {
-        public RewardConfigurationData RewardConfigurationData;
-        public int amount;
     }
 }

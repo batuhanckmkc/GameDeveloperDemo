@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using GameDeveloperDemo.Model;
 using GameDeveloperDemo.View;
 using ScriptableObjects;
 using UnityEngine;
@@ -9,24 +10,22 @@ namespace GameDeveloperDemo.Controller
     {
         [SerializeField] private RewardsDataSO rewardsDataSo;
         [SerializeField] private ZoneRewardsDataSO zoneRewardsDataSo;
-        [SerializeField] private Transform wheel;
         [SerializeField] private RewardItem rewardItemPrefab;
         [SerializeField] private float radius = 250f;
         private const float CircleAngle = 360f;
-        public void GenerateRewards()
+        
+        public void GenerateRewards(Transform parent)
         {
             List<ZoneRewardData> rewards = zoneRewardsDataSo.RewardModels;
             float angleStep = CircleAngle / rewards.Count;
-
             for (int i = 0; i < rewards.Count; i++)
             {
-                RewardItem rewardItem = Instantiate(rewardItemPrefab, wheel);
                 float angle = 90f - i * angleStep;
 
+                RewardItem rewardItem = Instantiate(rewardItemPrefab, parent);
                 rewardItem.transform.localPosition = GetRewardPosition(angle);
-                rewardItem.transform.localRotation = Quaternion.Euler(0, 0, angle - 90);
-                rewardItem.SetRewardUI(rewards[i], rewardsDataSo.GetSprite(rewards[i].RewardConfigurationData.RewardType)
-                );
+                rewardItem.transform.localRotation = GetRewardRotation(angle);
+                rewardItem.SetRewardUI(rewards[i], rewardsDataSo.GetSprite(rewards[i].rewardConfigurationData.rewardType));
             }
         }
 
@@ -37,6 +36,11 @@ namespace GameDeveloperDemo.Controller
             float y = Mathf.Sin(radians) * radius;
 
             return new Vector3(x, y, 0);
+        }
+
+        private Quaternion GetRewardRotation(float angle)
+        {
+            return Quaternion.Euler(0, 0, angle - 90);
         }
     }
 }

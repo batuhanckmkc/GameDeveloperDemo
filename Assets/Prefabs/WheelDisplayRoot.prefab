@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 3111745986323068518}
   - component: {fileID: 3111745986323068517}
   m_Layer: 5
-  m_Name: ui_image_spin_indicator
+  m_Name: ui_image_spin_pointer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -262,9 +262,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e18856d9854b96ac1bd31779b91211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheel: {fileID: 3111745986597725163}
-  indicator: {fileID: 3111745986323068516}
+  wheel: {fileID: 3111745986597725140}
+  pointer: {fileID: 3111745986323068517}
   spinButton: {fileID: 3970694560038307917}
+  zoneDataSo: {fileID: 11400000, guid: 8fdb5b1ff15384350bcd79c7511c58d8, type: 2}
 --- !u!222 &3111745986597725141
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -365,3 +366,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheelView: {fileID: 4750435117343651700}
+  rewardItemGenerator: {fileID: 0}

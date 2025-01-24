@@ -13,35 +13,35 @@ MonoBehaviour:
   m_Name: BronzeZoneData
   m_EditorClassIdentifier: 
   rewardModels:
-  - RewardConfigurationData:
-      RewardType: 25
-      TierType: 0
+  - rewardConfigurationData:
+      rewardType: 25
+      tierType: 0
     amount: 50
-  - RewardConfigurationData:
-      RewardType: 25
-      TierType: 0
+  - rewardConfigurationData:
+      rewardType: 25
+      tierType: 0
     amount: 75
-  - RewardConfigurationData:
-      RewardType: 25
-      TierType: 0
+  - rewardConfigurationData:
+      rewardType: 25
+      tierType: 0
     amount: 100
-  - RewardConfigurationData:
-      RewardType: 25
-      TierType: 0
+  - rewardConfigurationData:
+      rewardType: 25
+      tierType: 0
     amount: 125
-  - RewardConfigurationData:
-      RewardType: 25
-      TierType: 0
+  - rewardConfigurationData:
+      rewardType: 25
+      tierType: 0
     amount: 150
-  - RewardConfigurationData:
-      RewardType: 25
-      TierType: 0
+  - rewardConfigurationData:
+      rewardType: 25
+      tierType: 0
     amount: 175
-  - RewardConfigurationData:
-      RewardType: 25
-      TierType: 0
+  - rewardConfigurationData:
+      rewardType: 25
+      tierType: 0
     amount: 200
-  - RewardConfigurationData:
-      RewardType: 25
-      TierType: 0
+  - rewardConfigurationData:
+      rewardType: 25
+      tierType: 0
     amount: 225
