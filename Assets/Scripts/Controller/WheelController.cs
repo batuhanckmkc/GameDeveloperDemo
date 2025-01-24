@@ -19,13 +19,13 @@ namespace GameDeveloperDemo.Controller
         {
             _wheelModel = new WheelModel();
             _rewardItemGenerator = rewardItemGenerator;
+            wheelView.Initialize(OnSpinButtonClicked, rewardsDataSo);
             wheelView.SetRewardItems(_rewardItemGenerator.GenerateRewards(wheelView.transform), zoneDataSo.GetZoneData(ZoneType.NormalZone));
         }
 
         private void OnEnable()
         {
             ZoneController.OnZoneChange += OnZoneChange;
-            wheelView.Initialize(OnSpinButtonClicked, rewardsDataSo);
         }
 
         private void OnDisable()
