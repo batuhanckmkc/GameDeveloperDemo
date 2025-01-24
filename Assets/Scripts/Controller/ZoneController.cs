@@ -11,11 +11,12 @@ namespace GameDeveloperDemo.Controller
     {
         [SerializeField] private ZoneDataSO zoneDataSo;
         private ZoneData _currentZone;
-        private int _currentZoneIndex;
+        public ZoneData CurrentZone => _currentZone;
+        private int _currentZoneIndex = 1;
         private List<ZoneData> _sortedZones = new ();
         public static event Action<ZoneData> OnZoneChange;
 
-        private void Awake()
+        public void Initialize()
         {
             SortZones();
             _currentZone = zoneDataSo.GetZoneData(ZoneType.NormalZone);
@@ -44,23 +45,16 @@ namespace GameDeveloperDemo.Controller
         
         private void CheckZoneState()
         {
-            ZoneData selectedZone = null;
-            foreach (var zone in _sortedZones)
+            for (int i = _sortedZones.Count - 1; i >= 0; i--)
             {
-                if (_currentZoneIndex >= zone.activationAmount)
+                ZoneData zoneData = _sortedZones[i];
+                if (_currentZoneIndex % zoneData.activationAmount == 0)
                 {
-                    selectedZone = zone;
-                }
-                else
-                {
+                    _currentZone = zoneData;
+                    OnZoneChange?.Invoke(_currentZone);
+                    Debug.Log("Update Zone" + _currentZone.zoneType);
                     break;
                 }
-            }
-            if (selectedZone != null && _currentZone.zoneType != selectedZone.zoneType)
-            {
-                _currentZone = selectedZone;
-                OnZoneChange?.Invoke(_currentZone);
-                Debug.Log("Update Zone");
             }
         }
     }

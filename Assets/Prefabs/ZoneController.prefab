@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2737011683158102284}
   - component: {fileID: 2737011683158102285}
   m_Layer: 0
-  m_Name: ZoneManager
+  m_Name: ZoneController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

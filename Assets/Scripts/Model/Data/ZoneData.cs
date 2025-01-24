@@ -7,6 +7,7 @@ namespace GameDeveloperDemo.Model
     public class ZoneData
     {
         public ZoneType zoneType;
+        public Color textColor;
         public Sprite wheelSprite;
         public Sprite pointerSprite;
         public ZoneRewardsDataSO zoneRewardsDataSo;
