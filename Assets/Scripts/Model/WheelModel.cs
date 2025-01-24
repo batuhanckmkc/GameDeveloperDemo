@@ -1,4 +1,3 @@
-
 namespace GameDeveloperDemo.Model
 {
     public class WheelModel

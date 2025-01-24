@@ -265,7 +265,6 @@ MonoBehaviour:
   wheel: {fileID: 3111745986597725140}
   pointer: {fileID: 3111745986323068517}
   spinButton: {fileID: 3970694560038307917}
-  zoneDataSo: {fileID: 11400000, guid: 8fdb5b1ff15384350bcd79c7511c58d8, type: 2}
 --- !u!222 &3111745986597725141
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -367,3 +366,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wheelView: {fileID: 4750435117343651700}
   rewardItemGenerator: {fileID: 0}
+  rewardsDataSo: {fileID: 11400000, guid: dca8785b99f034276b57b2eb2531af3c, type: 2}
+  zoneDataSo: {fileID: 11400000, guid: 8fdb5b1ff15384350bcd79c7511c58d8, type: 2}

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30ea7322459d48eb805f825db358f1c7, type: 3}
-  m_Name: BronzeZoneData
+  m_Name: SuperZoneRewardData
   m_EditorClassIdentifier: 
   rewardModels:
   - rewardConfigurationData:
-      rewardType: 25
+      rewardType: 10
       tierType: 0
     amount: 50
   - rewardConfigurationData:

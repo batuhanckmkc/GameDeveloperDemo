@@ -1,5 +1,7 @@
+using System;
 using GameDeveloperDemo.Model;
 using GameDeveloperDemo.View;
+using ScriptableObjects;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,18 +11,26 @@ namespace GameDeveloperDemo.Controller
     {
         [SerializeField] private WheelView wheelView;
         [SerializeField] private RewardItemGenerator rewardItemGenerator;
-        
+        [SerializeField] private RewardsDataSO rewardsDataSo;
+        [SerializeField] private ZoneDataSO zoneDataSo;
+        public static event Action OnSpinComplete;
         private WheelModel _wheelModel;
-        
-        private void Awake()
+
+        private void Start()
         {
             _wheelModel = new WheelModel();
-            wheelView.Initialize(OnSpinButtonClicked);
-            rewardItemGenerator.GenerateRewards(wheelView.transform);
+            wheelView.SetRewardItems(rewardItemGenerator.GenerateRewards(wheelView.transform), zoneDataSo.GetZoneData(ZoneType.NormalZone));
         }
 
-        private void OnDestroy()
+        private void OnEnable()
         {
+            ZoneController.OnZoneChange += OnZoneChange;
+            wheelView.Initialize(OnSpinButtonClicked, rewardsDataSo);
+        }
+
+        private void OnDisable()
+        {
+            ZoneController.OnZoneChange -= OnZoneChange;
             wheelView.Deinitialize(OnSpinButtonClicked);
         }
 
@@ -39,7 +49,13 @@ namespace GameDeveloperDemo.Controller
             wheelView.RotateWheel(sliceAngle, finalAngle, 3f, () =>
             {
                 wheelView.OpenSpinButton();
+                OnSpinComplete?.Invoke();
             });
+        }
+
+        private void OnZoneChange(ZoneData zoneData)
+        {
+            wheelView.SetView(zoneData);
         }
     }
 }

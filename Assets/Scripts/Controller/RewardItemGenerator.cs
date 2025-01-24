@@ -8,14 +8,14 @@ namespace GameDeveloperDemo.Controller
 {
     public class RewardItemGenerator : MonoBehaviour
     {
-        [SerializeField] private RewardsDataSO rewardsDataSo;
         [SerializeField] private ZoneRewardsDataSO zoneRewardsDataSo;
         [SerializeField] private RewardItem rewardItemPrefab;
         [SerializeField] private float radius = 250f;
         private const float CircleAngle = 360f;
         
-        public void GenerateRewards(Transform parent)
+        public List<RewardItem> GenerateRewards(Transform parent)
         {
+            List<RewardItem> rewardItems = new List<RewardItem>();
             List<ZoneRewardData> rewards = zoneRewardsDataSo.RewardModels;
             float angleStep = CircleAngle / rewards.Count;
             for (int i = 0; i < rewards.Count; i++)
@@ -25,8 +25,9 @@ namespace GameDeveloperDemo.Controller
                 RewardItem rewardItem = Instantiate(rewardItemPrefab, parent);
                 rewardItem.transform.localPosition = GetRewardPosition(angle);
                 rewardItem.transform.localRotation = GetRewardRotation(angle);
-                rewardItem.SetRewardUI(rewards[i], rewardsDataSo.GetSprite(rewards[i].rewardConfigurationData.rewardType));
+                rewardItems.Add(rewardItem);
             }
+            return rewardItems;
         }
 
         private Vector3 GetRewardPosition(float angle)

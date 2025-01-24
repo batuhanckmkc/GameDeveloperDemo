@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using GameDeveloperDemo.Model;
 using ScriptableObjects;
@@ -12,9 +13,11 @@ namespace GameDeveloperDemo.View
         [SerializeField] private Image wheel; 
         [SerializeField] private Image pointer;
         [SerializeField] private SpinButton spinButton;
-        [SerializeField] private ZoneDataSO zoneDataSo;
-        private int _lastSliceIndex = -1;
 
+        private int _lastSliceIndex = -1;
+        private List<RewardItem> _rewardItems = new();
+        private RewardsDataSO _rewardsDataSo;
+        
         #region Animation Values
 
         private const float CircleAngle = 360f;
@@ -22,18 +25,18 @@ namespace GameDeveloperDemo.View
         private const float TargetFPS = 60f;
 
         #endregion
-        
-        public void Initialize(Action onSpinButtonClicked)
+
+        public void Initialize(Action onSpinButtonClicked, RewardsDataSO rewardsDataSo)
         {
             spinButton.RegisterListener(onSpinButtonClicked);
-            SetView(zoneDataSo.GetZoneData(ZoneType.SafeZone));
+            _rewardsDataSo = rewardsDataSo;
         }
 
         public void Deinitialize(Action onSpinButtonClicked)
         {
             spinButton.UnregisterListener(onSpinButtonClicked);
         }
-
+        
         public void RotateWheel(float sliceAngle, float finalAngle, float duration, Action onComplete)
         {
             wheel.transform.DORotate(new Vector3(0, 0, -finalAngle), duration, RotateMode.FastBeyond360)
@@ -60,10 +63,26 @@ namespace GameDeveloperDemo.View
             }
         }
 
-        private void SetView(ZoneData zoneData)
+        public void SetRewardItems(List<RewardItem> rewardItems, ZoneData zoneData)
+        {
+            _rewardItems = rewardItems;
+            SetView(zoneData);
+        }
+        
+        public void SetView(ZoneData zoneData)
         {
             wheel.sprite = zoneData.wheelSprite;
             pointer.sprite = zoneData.pointerSprite;
+            UpdateRewardItemsView(zoneData);
+        }
+
+        private void UpdateRewardItemsView(ZoneData zoneData)
+        {
+            List<ZoneRewardData> rewards = zoneData.zoneRewardsDataSo.RewardModels;
+            for (int i = 0; i < _rewardItems.Count; i++)
+            {
+                _rewardItems[i].SetRewardUI(rewards[i], _rewardsDataSo.GetSprite(rewards[i].rewardConfigurationData.rewardType));
+            }
         }
         
         public void OpenSpinButton() => spinButton.button.interactable = true;

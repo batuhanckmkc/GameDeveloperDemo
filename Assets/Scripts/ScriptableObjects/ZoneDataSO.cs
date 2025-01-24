@@ -9,7 +9,7 @@ namespace ScriptableObjects
     public class ZoneDataSO : ScriptableObject
     {
         [SerializeField] private List<ZoneData> zoneConfigurations;
-
+        public List<ZoneData> ZoneConfigurations => zoneConfigurations;
         public ZoneData GetZoneData(ZoneType zoneType)
         {
             foreach (var zoneData in zoneConfigurations.Where(setItem => setItem.zoneType == zoneType))
