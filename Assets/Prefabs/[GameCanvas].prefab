@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8613640077730515379}
   - component: {fileID: 8613640077730515378}
   - component: {fileID: 8613640077730515377}
+  - component: {fileID: 723988018216592663}
   m_Layer: 5
   m_Name: '[GameCanvas]'
   m_TagString: Untagged
@@ -31,8 +32,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8613640078192481163}
   - {fileID: 6198721973791958605}
+  - {fileID: 8613640078192481163}
   - {fileID: 1211240880570280879}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -103,6 +104,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &723988018216592663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8613640077730515376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04f57bdd4ddf45daa652d88007e2ee3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoneBarView: {fileID: 2523122808600415842}
+  wheelView: {fileID: 6827064134037640024}
 --- !u!1001 &5524404815656629085
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -112,7 +127,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 927822835690298755, guid: 38ec4271aa5ab437eabc8c82cc156683, type: 3}
       propertyPath: m_Name
-      value: ZoneBarDisplayRoot
+      value: ZoneBarView
       objectReference: {fileID: 0}
     - target: {fileID: 1922166382127781136, guid: 38ec4271aa5ab437eabc8c82cc156683, type: 3}
       propertyPath: m_Pivot.x
@@ -124,7 +139,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1922166382127781136, guid: 38ec4271aa5ab437eabc8c82cc156683, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1922166382127781136, guid: 38ec4271aa5ab437eabc8c82cc156683, type: 3}
       propertyPath: m_AnchorMax.x
@@ -200,6 +215,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38ec4271aa5ab437eabc8c82cc156683, type: 3}
+--- !u!114 &2523122808600415842 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8046048222503501119, guid: 38ec4271aa5ab437eabc8c82cc156683, type: 3}
+  m_PrefabInstance: {fileID: 5524404815656629085}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0805934054354212adaf2512f67de27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6198721973791958605 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1922166382127781136, guid: 38ec4271aa5ab437eabc8c82cc156683, type: 3}
@@ -214,7 +240,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3111745986680338410, guid: 7d24e5934d768419382605006933d257, type: 3}
       propertyPath: m_Name
-      value: WheelDisplayRoot
+      value: WheelView
       objectReference: {fileID: 0}
     - target: {fileID: 3111745986680338411, guid: 7d24e5934d768419382605006933d257, type: 3}
       propertyPath: m_Pivot.x
@@ -226,7 +252,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3111745986680338411, guid: 7d24e5934d768419382605006933d257, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3111745986680338411, guid: 7d24e5934d768419382605006933d257, type: 3}
       propertyPath: m_AnchorMax.x
@@ -302,6 +328,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d24e5934d768419382605006933d257, type: 3}
+--- !u!114 &6827064134037640024 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 150996859369862968, guid: 7d24e5934d768419382605006933d257, type: 3}
+  m_PrefabInstance: {fileID: 6676279131609441376}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e18856d9854b96ac1bd31779b91211, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8613640078192481163 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3111745986680338411, guid: 7d24e5934d768419382605006933d257, type: 3}
@@ -316,7 +353,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1403758408351554461, guid: 50c0a3225f4bc4c89a768c02325afab1, type: 3}
       propertyPath: m_Name
-      value: RewardDisplayRoot
+      value: RewardView
       objectReference: {fileID: 0}
     - target: {fileID: 7174502035535053963, guid: 50c0a3225f4bc4c89a768c02325afab1, type: 3}
       propertyPath: m_Pivot.x

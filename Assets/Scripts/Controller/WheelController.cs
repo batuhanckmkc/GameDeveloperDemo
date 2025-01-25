@@ -8,19 +8,20 @@ namespace GameDeveloperDemo.Controller
 {
     public class WheelController : MonoBehaviour
     {
-        [SerializeField] private WheelView wheelView;
-        [SerializeField] private RewardsDataSO rewardsDataSo;
-        [SerializeField] private ZoneDataSO zoneDataSo;
-        public static event Action OnSpinComplete;
+        public static event Action<ZoneRewardData> OnSpinComplete;
         private WheelModel _wheelModel;
+        private WheelView _wheelView;
         private RewardItemGenerator _rewardItemGenerator;
+        private RewardsDataSO _rewardsDataSo;
 
-        public void Initialize(RewardItemGenerator rewardItemGenerator)
+        public void Initialize(RewardItemGenerator rewardItemGenerator, WheelView wheelView, RewardsDataSO rewardsDataSo, ZoneData startingZone)
         {
             _wheelModel = new WheelModel();
             _rewardItemGenerator = rewardItemGenerator;
-            wheelView.Initialize(OnSpinButtonClicked, rewardsDataSo);
-            wheelView.SetRewardItems(_rewardItemGenerator.GenerateRewards(wheelView.transform), zoneDataSo.GetZoneData(ZoneType.NormalZone));
+            _rewardsDataSo = rewardsDataSo;
+            _wheelView = wheelView;
+            _wheelView.Initialize(OnSpinButtonClicked, _rewardsDataSo);
+            _wheelView.SetRewardItems(_rewardItemGenerator.GenerateRewards(_wheelView.RewardItemSpawnPosition), startingZone);
         }
 
         private void OnEnable()
@@ -31,7 +32,7 @@ namespace GameDeveloperDemo.Controller
         private void OnDisable()
         {
             ZoneController.OnZoneChange -= OnZoneChange;
-            wheelView.Deinitialize(OnSpinButtonClicked);
+            _wheelView.Deinitialize(OnSpinButtonClicked);
         }
 
         private void OnSpinButtonClicked()
@@ -39,26 +40,25 @@ namespace GameDeveloperDemo.Controller
             Debug.Log("Spin button clicked!");
             var sliceAngle = _wheelModel.GetSliceAngle();
             var finalAngle = _wheelModel.GetFinalAngle();
-            wheelView.CloseSpinButton();
-            wheelView.RotateWheel(sliceAngle, finalAngle, 3f,() =>
+            _wheelView.CloseSpinButton();
+            _wheelView.RotateWheel(sliceAngle, finalAngle, 3f,() =>
             {
-                wheelView.OpenSpinButton();
-                OnSpinComplete?.Invoke();
-                
-                var stoppedReward = GetStoppedReward(finalAngle);
-                Debug.Log($"Wheel Stopped! ZoneRewardType: {stoppedReward.rewardConfigurationData.rewardType}, ZoneRewardAmount: {stoppedReward.amount}");
+                _wheelView.OpenSpinButton();
+                var stoppedItem = GetStoppedZoneItem(finalAngle);
+                OnSpinComplete?.Invoke(stoppedItem);
+                Debug.Log($"Wheel Stopped! ZoneRewardType: {stoppedItem.rewardConfigurationData.rewardType}, ZoneRewardAmount: {stoppedItem.amount}");
             });
         }
         
-        private ZoneRewardData GetStoppedReward(float finalAngle)
+        private ZoneRewardData GetStoppedZoneItem(float finalAngle)
         {
             int sliceIndex = _wheelModel.GetWheelPointerSliceIndex(finalAngle);
-            return wheelView.GetRewardAtIndex(sliceIndex);
+            return _wheelView.GetRewardAtIndex(sliceIndex);
         }
         
         private void OnZoneChange(ZoneData zoneData)
         {
-            wheelView.SetView(zoneData);
+            _wheelView.SetView(zoneData);
         }
     }
 }

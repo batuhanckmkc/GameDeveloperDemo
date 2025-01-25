@@ -313,9 +313,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3111745986680338411}
   - component: {fileID: 3111745986680338389}
-  - component: {fileID: 5633749757970685144}
+  - component: {fileID: 150996859369862968}
   m_Layer: 5
-  m_Name: WheelDisplayRoot
+  m_Name: WheelView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -352,7 +352,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3111745986680338410}
   m_CullTransparentMesh: 1
---- !u!114 &5633749757970685144
+--- !u!114 &150996859369862968
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -361,10 +361,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3111745986680338410}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e32faaf67bdd486283eac369702dd288, type: 3}
+  m_Script: {fileID: 11500000, guid: f8e18856d9854b96ac1bd31779b91211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheelView: {fileID: 4750435117343651700}
-  rewardItemGenerator: {fileID: 0}
-  rewardsDataSo: {fileID: 11400000, guid: dca8785b99f034276b57b2eb2531af3c, type: 2}
-  zoneDataSo: {fileID: 11400000, guid: 8fdb5b1ff15384350bcd79c7511c58d8, type: 2}
+  wheel: {fileID: 3111745986597725140}
+  pointer: {fileID: 3111745986323068517}
+  spinButton: {fileID: 3970694560038307917}

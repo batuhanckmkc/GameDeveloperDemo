@@ -14,7 +14,7 @@ namespace GameDeveloperDemo.View
         [SerializeField] private Image wheel; 
         [SerializeField] private Image pointer;
         [SerializeField] private SpinButton spinButton;
-
+        public Transform RewardItemSpawnPosition => wheel.transform;
         private int _lastSliceIndex = -1;
         private List<RewardItem> _rewardItems = new();
         private RewardsDataSO _rewardsDataSo;

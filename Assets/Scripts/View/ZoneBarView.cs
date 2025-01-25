@@ -14,15 +14,16 @@ namespace GameDeveloperDemo.View
         [SerializeField] private RectTransform numbersContainer;
         [SerializeField] private TextMeshProUGUI numberPrefab;
         [SerializeField] private Image zoneRoundImage;
-        [SerializeField] private ZoneDataSO zoneDataSo;
-    
+
+        private ZoneDataSO _zoneDataSo;
         private int _visibleNumbersCount = 10;
         private int _numberSpacing = 55;
         private float _containerMoveAnimationDuration = 0.5f;
 
         private readonly List<TextMeshProUGUI> _numberTexts = new();
-        public void Initialize(ZoneModel zoneModel)
+        public void Initialize(ZoneModel zoneModel, ZoneDataSO zoneDataSo)
         {
+            _zoneDataSo = zoneDataSo;
             CreateNumberObjects();
             UpdateUI(zoneModel);
         }
@@ -55,7 +56,7 @@ namespace GameDeveloperDemo.View
                 var numberText = _numberTexts[i];
                 var number = int.Parse(numberText.text);
 
-                foreach (var zone in zoneDataSo.ZoneConfigurations.Where(zone => number % zone.activationAmount == 0))
+                foreach (var zone in _zoneDataSo.ZoneConfigurations.Where(zone => number % zone.activationAmount == 0))
                 {
                     numberText.color = zone.outsidePointerTextColor;
                 }

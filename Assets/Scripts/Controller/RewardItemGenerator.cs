@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using GameDeveloperDemo.Model;
-using GameDeveloperDemo.ScriptableObjects;
 using GameDeveloperDemo.Utils;
 using GameDeveloperDemo.View;
 using UnityEngine;
@@ -9,14 +8,19 @@ namespace GameDeveloperDemo.Controller
 {
     public class RewardItemGenerator : MonoBehaviour
     {
-        [SerializeField] private ZoneRewardsDataSO zoneRewardsDataSo;
         [SerializeField] private RewardItem rewardItemPrefab;
         [SerializeField] private float radius = 250f;
+        
+        private ZoneData _zoneData;
+        public void Initialize(ZoneData zoneData)
+        {
+            _zoneData = zoneData;
+        }
         
         public List<RewardItem> GenerateRewards(Transform parent)
         {
             List<RewardItem> rewardItems = new List<RewardItem>();
-            List<ZoneRewardData> rewards = zoneRewardsDataSo.RewardModels;
+            List<ZoneRewardData> rewards = _zoneData.zoneRewardsDataSo.RewardModels;
             float angleStep = Constants.CircleAngle / rewards.Count;
             for (int i = 0; i < rewards.Count; i++)
             {

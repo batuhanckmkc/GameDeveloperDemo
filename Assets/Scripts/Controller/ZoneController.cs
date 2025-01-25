@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using GameDeveloperDemo.Model;
 using GameDeveloperDemo.ScriptableObjects;
 using GameDeveloperDemo.View;
@@ -10,17 +8,17 @@ namespace GameDeveloperDemo.Controller
 {
     public class ZoneController : MonoBehaviour
     {
-        [SerializeField] private ZoneBarView zoneBarView;
-        [SerializeField] private ZoneDataSO zoneDataSo;
-        private List<ZoneData> _sortedZones = new ();
         public static event Action<ZoneData> OnZoneChange;
+        private ZoneBarView _zoneBarView;
         private ZoneModel _zoneModel;
-        public void Initialize()
+        private ZoneDataSO _zoneDataSo;
+        public void Initialize(ZoneBarView zoneBarView, ZoneDataSO zoneDataSo, ZoneData startingZone)
         {
-            SortZones();
+            _zoneBarView = zoneBarView;
+            _zoneDataSo = zoneDataSo;
             _zoneModel = new ZoneModel();
-            _zoneModel.SetZoneData(zoneDataSo.GetZoneData(ZoneType.NormalZone));
-            zoneBarView.Initialize(_zoneModel);
+            _zoneModel.SetZoneData(startingZone);
+            _zoneBarView.Initialize(_zoneModel, zoneDataSo);
         }
 
         private void OnEnable()
@@ -32,27 +30,26 @@ namespace GameDeveloperDemo.Controller
         {
             WheelController.OnSpinComplete -= IncreaseZone;
         }
-
-        private void SortZones()
-        {
-            _sortedZones = zoneDataSo.ZoneConfigurations.OrderBy(z => z.activationAmount).ToList();
-        }
         
-        private void IncreaseZone()
+        private void IncreaseZone(ZoneRewardData zoneRewardData)
         {
+            if (zoneRewardData.rewardConfigurationData.rewardType == RewardType.Bomb)
+            {
+                return;
+            }
             _zoneModel.IncreaseZone();;
             CheckZoneState();
         }
         
         private void CheckZoneState()
         {
-            for (int i = _sortedZones.Count - 1; i >= 0; i--)
+            for (int i = _zoneDataSo.ZoneConfigurations.Count - 1; i >= 0; i--)
             {
-                ZoneData zoneData = _sortedZones[i];
+                ZoneData zoneData = _zoneDataSo.ZoneConfigurations[i];
                 if (_zoneModel.CurrentZoneIndex % zoneData.activationAmount == 0)
                 {
                     _zoneModel.SetZoneData(zoneData);
-                    zoneBarView.ShiftNumbers(_zoneModel);
+                    _zoneBarView.ShiftNumbers(_zoneModel);
                     OnZoneChange?.Invoke(zoneData);
                     Debug.Log("Update Zone" + zoneData.zoneType);
                     break;
