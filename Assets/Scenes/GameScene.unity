@@ -551,5 +551,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7608434382486216420, guid: d8d828d5461564e3cab7e78e1ed2719e, type: 3}
+      propertyPath: zoneBarView
+      value: 
+      objectReference: {fileID: 1032428372}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8d828d5461564e3cab7e78e1ed2719e, type: 3}

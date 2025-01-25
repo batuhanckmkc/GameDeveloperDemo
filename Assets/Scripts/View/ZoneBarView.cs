@@ -5,49 +5,35 @@ using GameDeveloperDemo.Model;
 using GameDeveloperDemo.ScriptableObjects;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-namespace GameDeveloperDemo.Controller
+namespace GameDeveloperDemo.View
 {
-    public class ZoneBarController : MonoBehaviour
+    public class ZoneBarView : MonoBehaviour
     {
         [SerializeField] private RectTransform numbersContainer;
         [SerializeField] private TextMeshProUGUI numberPrefab;
+        [SerializeField] private Image zoneRoundImage;
         [SerializeField] private ZoneDataSO zoneDataSo;
     
         private int _visibleNumbersCount = 10;
-        private int _numberSpacing = 50;
-        private float _fadeOutAlpha = 0.5f;
+        private int _numberSpacing = 55;
         private float _containerMoveAnimationDuration = 0.5f;
 
         private readonly List<TextMeshProUGUI> _numberTexts = new();
-        public void Initialize(ZoneData currentZone)
+        public void Initialize(ZoneModel zoneModel)
         {
             CreateNumberObjects();
-            UpdateUI(currentZone);
-        }
-
-        private void OnEnable()
-        {
-            ZoneController.OnZoneChange += OnZoneChange;
-        }
-
-        private void OnDisable()
-        {
-            ZoneController.OnZoneChange -= OnZoneChange;
-        }
-
-        private void OnZoneChange(ZoneData newZone)
-        {
-            ShiftNumbers(newZone);
+            UpdateUI(zoneModel);
         }
         
-        private void ShiftNumbers(ZoneData currentZone)
+        public void ShiftNumbers(ZoneModel zoneModel)
         {
+            UpdateUI(zoneModel);
             numbersContainer.DOAnchorPos(new Vector3(-_numberSpacing, 0, 0), _containerMoveAnimationDuration).OnComplete(() =>
             {
                 ResetContainerPosition();
                 RecycleNumbers();
-                UpdateUI(currentZone);
             });
         }
         
@@ -62,25 +48,26 @@ namespace GameDeveloperDemo.Controller
             }
         }
         
-        private void UpdateUI(ZoneData zoneData)
+        private void UpdateUI(ZoneModel zoneModel)
         {
-            foreach (var numberText in _numberTexts)
+            for (int i = 0; i < _numberTexts.Count; i++)
             {
+                var numberText = _numberTexts[i];
                 var number = int.Parse(numberText.text);
-            
+
                 foreach (var zone in zoneDataSo.ZoneConfigurations.Where(zone => number % zone.activationAmount == 0))
                 {
-                    numberText.color = zone.textColor;
+                    numberText.color = zone.outsidePointerTextColor;
                 }
-
-                if (number < zoneData.activationAmount)
+                if (number == zoneModel.CurrentZoneIndex)
                 {
-                    numberText.color = new Color(numberText.color.r, numberText.color.g, numberText.color.b, _fadeOutAlpha);
+                    numberText.color = zoneModel.ZoneData.insidePointerTextColor;
+                    zoneRoundImage.color = zoneModel.ZoneData.zoneBackgroundColor;
                 }
             }
         }
         
-        public void ResetZoneBar(ZoneData currentZone)
+        public void ResetZoneBar(ZoneModel zoneModel)
         {
             numbersContainer.anchoredPosition = Vector2.zero;
 
@@ -89,7 +76,7 @@ namespace GameDeveloperDemo.Controller
                 _numberTexts[i].transform.localPosition = new Vector3(i * _numberSpacing, 0, 0);
                 _numberTexts[i].text = (i + 1).ToString();
             }
-            UpdateUI(currentZone);
+            UpdateUI(zoneModel);
         }
         
         private void RecycleNumbers()

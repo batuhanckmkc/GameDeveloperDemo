@@ -3,23 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using GameDeveloperDemo.Model;
 using GameDeveloperDemo.ScriptableObjects;
+using GameDeveloperDemo.View;
 using UnityEngine;
 
 namespace GameDeveloperDemo.Controller
 {
     public class ZoneController : MonoBehaviour
     {
+        [SerializeField] private ZoneBarView zoneBarView;
         [SerializeField] private ZoneDataSO zoneDataSo;
-        private ZoneData _currentZone;
-        public ZoneData CurrentZone => _currentZone;
-        private int _currentZoneIndex = 1;
         private List<ZoneData> _sortedZones = new ();
         public static event Action<ZoneData> OnZoneChange;
-
+        private ZoneModel _zoneModel;
         public void Initialize()
         {
             SortZones();
-            _currentZone = zoneDataSo.GetZoneData(ZoneType.NormalZone);
+            _zoneModel = new ZoneModel();
+            _zoneModel.SetZoneData(zoneDataSo.GetZoneData(ZoneType.NormalZone));
+            zoneBarView.Initialize(_zoneModel);
         }
 
         private void OnEnable()
@@ -39,7 +40,7 @@ namespace GameDeveloperDemo.Controller
         
         private void IncreaseZone()
         {
-            _currentZoneIndex++;
+            _zoneModel.IncreaseZone();;
             CheckZoneState();
         }
         
@@ -48,11 +49,12 @@ namespace GameDeveloperDemo.Controller
             for (int i = _sortedZones.Count - 1; i >= 0; i--)
             {
                 ZoneData zoneData = _sortedZones[i];
-                if (_currentZoneIndex % zoneData.activationAmount == 0)
+                if (_zoneModel.CurrentZoneIndex % zoneData.activationAmount == 0)
                 {
-                    _currentZone = zoneData;
-                    OnZoneChange?.Invoke(_currentZone);
-                    Debug.Log("Update Zone" + _currentZone.zoneType);
+                    _zoneModel.SetZoneData(zoneData);
+                    zoneBarView.ShiftNumbers(_zoneModel);
+                    OnZoneChange?.Invoke(zoneData);
+                    Debug.Log("Update Zone" + zoneData.zoneType);
                     break;
                 }
             }
