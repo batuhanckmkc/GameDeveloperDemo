@@ -17,7 +17,6 @@ namespace GameDeveloperDemo.Model
         
         public void ResetZone()
         {
-            ZoneData = null;
             CurrentZoneIndex = 0;
         }
     }

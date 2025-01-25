@@ -7,7 +7,6 @@ namespace GameDeveloperDemo.Controller
     {
         [SerializeField] private ZoneBarView zoneBarView;
         [SerializeField] private WheelView wheelView;
-
         public ZoneBarView ZoneBarView => zoneBarView;
         public WheelView WheelView => wheelView;
     }

@@ -26,15 +26,27 @@ namespace GameDeveloperDemo.Controller
 
         private void OnEnable()
         {
-            ZoneController.OnZoneChange += OnZoneChange;
+            SubscribeEvents();
         }
 
         private void OnDisable()
         {
-            ZoneController.OnZoneChange -= OnZoneChange;
+            UnsubscribeEvents();
             _wheelView.Deinitialize(OnSpinButtonClicked);
         }
 
+        private void SubscribeEvents()
+        {
+            ZoneController.OnZoneChange += OnZoneChange;
+            ReviveScreenView.OnGiveUp += OnGiveUp;
+        }
+        
+        private void UnsubscribeEvents()
+        {
+            ZoneController.OnZoneChange -= OnZoneChange;
+            ReviveScreenView.OnGiveUp -= OnGiveUp;
+        }
+        
         private void OnSpinButtonClicked()
         {
             Debug.Log("Spin button clicked!");
@@ -54,6 +66,11 @@ namespace GameDeveloperDemo.Controller
         {
             int sliceIndex = _wheelModel.GetWheelPointerSliceIndex(finalAngle);
             return _wheelView.GetRewardAtIndex(sliceIndex);
+        }
+
+        private void OnGiveUp()
+        {
+            _wheelView.ResetView();
         }
         
         private void OnZoneChange(ZoneData zoneData)

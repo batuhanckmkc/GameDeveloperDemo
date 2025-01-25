@@ -4,14 +4,15 @@ using UnityEngine.UI;
 
 namespace GameDeveloperDemo.View
 {
-    public class GameOverScreenView : MonoBehaviour
+    public class ReviveScreenView : MonoBehaviour
     {
         [SerializeField] private GameObject root;
         [SerializeField] private Button giveUpButton;
         [SerializeField] private Button reviveButton;
-        
+        public static event Action OnRevive;
+        public static event Action OnGiveUp;
         public void Show() => root.gameObject.SetActive(true);
-        public void Hide() => root.gameObject.SetActive(false);
+        private void Hide() => root.gameObject.SetActive(false);
 
         private void OnEnable()
         {
@@ -25,14 +26,26 @@ namespace GameDeveloperDemo.View
 
         private void SubscribeButtonClicks()
         {
-            giveUpButton.onClick.AddListener(Hide);
-            reviveButton.onClick.AddListener(Hide);
+            giveUpButton.onClick.AddListener(GiveUp);
+            reviveButton.onClick.AddListener(Revive);
         }
         
         private void UnsubscribeButtonClicks()
         {
-            giveUpButton.onClick.RemoveListener(Hide);
-            reviveButton.onClick.RemoveListener(Hide);
+            giveUpButton.onClick.RemoveListener(GiveUp);
+            reviveButton.onClick.RemoveListener(Revive);
+        }
+
+        private void GiveUp()
+        {
+            Hide();
+            OnGiveUp?.Invoke();
+        }
+        
+        private void Revive()
+        {
+            Hide();
+            OnRevive?.Invoke();
         }
     }
 }

@@ -25,3 +25,39 @@ MonoBehaviour:
       rewardType: 25
       tierType: 0
     sprite: {fileID: 21300000, guid: 1b016bb486caf48d89f3c15c5c13c851, type: 3}
+  - rewardConfigurationData:
+      rewardType: 40
+      tierType: 0
+    sprite: {fileID: 21300000, guid: fb7e971070d8543a08f201f6a6cf9d00, type: 3}
+  - rewardConfigurationData:
+      rewardType: 20
+      tierType: 0
+    sprite: {fileID: 21300000, guid: 9c843e7a2c7d541b8984e7db00d67195, type: 3}
+  - rewardConfigurationData:
+      rewardType: 35
+      tierType: 0
+    sprite: {fileID: 21300000, guid: be4e85f11dac649d89c99749f7735a97, type: 3}
+  - rewardConfigurationData:
+      rewardType: 50
+      tierType: 0
+    sprite: {fileID: 21300000, guid: 90760a2d041994d0a9728dcdeb34e663, type: 3}
+  - rewardConfigurationData:
+      rewardType: 45
+      tierType: 0
+    sprite: {fileID: 21300000, guid: 69751d3468a564d71a3d7b2024e30e29, type: 3}
+  - rewardConfigurationData:
+      rewardType: 70
+      tierType: 0
+    sprite: {fileID: 21300000, guid: 1df285767a00d47f28ce1bca8efb8fc3, type: 3}
+  - rewardConfigurationData:
+      rewardType: 55
+      tierType: 0
+    sprite: {fileID: 21300000, guid: cbaecbaa7087e4f8e83059fbf1df4fba, type: 3}
+  - rewardConfigurationData:
+      rewardType: 15
+      tierType: 0
+    sprite: {fileID: 21300000, guid: 2aba3d1dc9cb24b59a02cc0d7e750a6c, type: 3}
+  - rewardConfigurationData:
+      rewardType: 75
+      tierType: 0
+    sprite: {fileID: 21300000, guid: 234330d3dfb53492a901ea7527d4f6c6, type: 3}

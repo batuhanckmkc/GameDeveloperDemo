@@ -1,6 +1,8 @@
+using System;
 using GameDeveloperDemo.Controller;
 using GameDeveloperDemo.Model;
 using GameDeveloperDemo.ScriptableObjects;
+using GameDeveloperDemo.View;
 using UnityEngine;
 
 namespace GameDeveloperDemo.Core
@@ -13,6 +15,7 @@ namespace GameDeveloperDemo.Core
         [SerializeField] private WheelController wheelController;
         [SerializeField] private RewardItemGenerator rewardItemGenerator;
         [SerializeField] private ZoneController zoneController;
+        [SerializeField] private ReviveScreenScreenController reviveScreenScreenController;
         [SerializeField] private GameCanvasManager gameCanvasManager;
 
         #endregion
@@ -27,6 +30,7 @@ namespace GameDeveloperDemo.Core
         
         [Header("Prefabs")]
         [SerializeField] private GameCanvasManager gameCanvasManagerPrefab;
+        
         private void Awake()
         {
             gameCanvasManager = Instantiate(gameCanvasManagerPrefab);
@@ -39,6 +43,7 @@ namespace GameDeveloperDemo.Core
             rewardItemGenerator.Initialize(startingZone);
             wheelController.Initialize(rewardItemGenerator, gameCanvasManager.WheelView, rewardsDataSo, startingZone);
             zoneController.Initialize(gameCanvasManager.ZoneBarView, zoneDataSo, startingZone);
+            reviveScreenScreenController.Initialize(gameCanvasManager.transform);
         }
     }
 }

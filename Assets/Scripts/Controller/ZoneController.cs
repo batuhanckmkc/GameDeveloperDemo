@@ -12,8 +12,10 @@ namespace GameDeveloperDemo.Controller
         private ZoneBarView _zoneBarView;
         private ZoneModel _zoneModel;
         private ZoneDataSO _zoneDataSo;
+        private ZoneData _startingZone;
         public void Initialize(ZoneBarView zoneBarView, ZoneDataSO zoneDataSo, ZoneData startingZone)
         {
+            _startingZone = startingZone;
             _zoneBarView = zoneBarView;
             _zoneDataSo = zoneDataSo;
             _zoneModel = new ZoneModel();
@@ -24,11 +26,13 @@ namespace GameDeveloperDemo.Controller
         private void OnEnable()
         {
             WheelController.OnSpinComplete += IncreaseZone;
+            ReviveScreenView.OnGiveUp += OnGiveUp;
         }
 
         private void OnDisable()
         {
             WheelController.OnSpinComplete -= IncreaseZone;
+            ReviveScreenView.OnGiveUp -= OnGiveUp;
         }
         
         private void IncreaseZone(ZoneRewardData zoneRewardData)
@@ -55,6 +59,14 @@ namespace GameDeveloperDemo.Controller
                     break;
                 }
             }
+        }
+
+        private void OnGiveUp()
+        {
+            _zoneModel.ResetZone();
+            _zoneModel.SetZoneData(_startingZone);
+            _zoneBarView.ResetZoneBar(_zoneModel);
+            OnZoneChange?.Invoke(_startingZone);
         }
     }
 }

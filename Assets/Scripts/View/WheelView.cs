@@ -88,6 +88,11 @@ namespace GameDeveloperDemo.View
                 _rewardItems[i].SetRewardUI(rewards[i], _rewardsDataSo.GetSprite(rewards[i].rewardConfigurationData.rewardType));
             }
         }
+
+        public void ResetView()
+        {
+            wheel.transform.rotation = Quaternion.identity;
+        }
         
         public void OpenSpinButton() => spinButton.button.interactable = true;
         public void CloseSpinButton() => spinButton.button.interactable = false;

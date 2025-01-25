@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 7191615513026925880}
   - component: {fileID: 2930308057527105453}
   m_Layer: 5
-  m_Name: FailScreen
+  m_Name: ReviveScreenView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
