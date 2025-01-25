@@ -5,16 +5,20 @@ using UnityEngine.UI;
 
 namespace GameDeveloperDemo.View
 {
-    public class RewardItem : MonoBehaviour
+    public abstract class RewardItem : MonoBehaviour
     {
         [SerializeField] private Image rewardImage;
         [SerializeField] private TextMeshProUGUI rewardText;
         public ZoneRewardData ZoneRewardData { get; private set; }
-        public void SetRewardUI(ZoneRewardData zoneRewardData, Sprite sprite)
+
+        public void InjectData(ZoneRewardData zoneRewardData)
+        {
+            ZoneRewardData = zoneRewardData;
+        }
+        public void SetRewardUI(Sprite sprite)
         {
             rewardImage.sprite = sprite;
-            rewardText.text = $"x{zoneRewardData.amount}";
-            ZoneRewardData = zoneRewardData;
+            rewardText.text = $"x{ZoneRewardData.amount}";
         }
     }
 }

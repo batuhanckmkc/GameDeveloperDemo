@@ -14,19 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rewardModels:
   - rewardConfigurationData:
-      rewardType: 75
+      rewardType: 25
       tierType: 0
     amount: 50
   - rewardConfigurationData:
-      rewardType: 75
+      rewardType: 25
       tierType: 0
     amount: 75
   - rewardConfigurationData:
-      rewardType: 75
+      rewardType: 65
       tierType: 0
     amount: 1
   - rewardConfigurationData:
-      rewardType: 75
+      rewardType: 35
       tierType: 0
     amount: 1
   - rewardConfigurationData:

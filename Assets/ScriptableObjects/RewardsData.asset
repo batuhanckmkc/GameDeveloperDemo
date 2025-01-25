@@ -61,3 +61,11 @@ MonoBehaviour:
       rewardType: 75
       tierType: 0
     sprite: {fileID: 21300000, guid: 234330d3dfb53492a901ea7527d4f6c6, type: 3}
+  - rewardConfigurationData:
+      rewardType: 65
+      tierType: 0
+    sprite: {fileID: 21300000, guid: 9f734a1e1f6174d7da9116964eadbfa3, type: 3}
+  - rewardConfigurationData:
+      rewardType: 35
+      tierType: 0
+    sprite: {fileID: 21300000, guid: be4e85f11dac649d89c99749f7735a97, type: 3}

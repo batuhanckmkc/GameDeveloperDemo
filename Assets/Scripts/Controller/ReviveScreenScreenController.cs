@@ -49,7 +49,7 @@ namespace GameDeveloperDemo.Controller
         
         private void CreateGameOverView()
         {
-            _reviveScreenView = Instantiate(reviveScreenViewPrefab, _reviveScreenSpawnTransform);
+            _reviveScreenView ??= Instantiate(reviveScreenViewPrefab, _reviveScreenSpawnTransform);
             _reviveScreenView.Show();
         }
     }

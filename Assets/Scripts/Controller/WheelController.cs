@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using GameDeveloperDemo.Model;
 using GameDeveloperDemo.ScriptableObjects;
 using GameDeveloperDemo.View;
@@ -11,17 +12,15 @@ namespace GameDeveloperDemo.Controller
         public static event Action<ZoneRewardData> OnSpinComplete;
         private WheelModel _wheelModel;
         private WheelView _wheelView;
-        private RewardItemGenerator _rewardItemGenerator;
         private RewardsDataSO _rewardsDataSo;
 
-        public void Initialize(RewardItemGenerator rewardItemGenerator, WheelView wheelView, RewardsDataSO rewardsDataSo, ZoneData startingZone)
+        public void Initialize(IRewardFactory rewardFactory, WheelView wheelView, RewardsDataSO rewardsDataSo, ZoneData startingZone)
         {
             _wheelModel = new WheelModel();
-            _rewardItemGenerator = rewardItemGenerator;
             _rewardsDataSo = rewardsDataSo;
             _wheelView = wheelView;
             _wheelView.Initialize(OnSpinButtonClicked, _rewardsDataSo);
-            _wheelView.SetRewardItems(_rewardItemGenerator.GenerateRewards(_wheelView.RewardItemSpawnPosition), startingZone);
+            SetView(startingZone, rewardFactory);
         }
 
         private void OnEnable()
@@ -60,6 +59,24 @@ namespace GameDeveloperDemo.Controller
                 OnSpinComplete?.Invoke(stoppedItem);
                 Debug.Log($"Wheel Stopped! ZoneRewardType: {stoppedItem.rewardConfigurationData.rewardType}, ZoneRewardAmount: {stoppedItem.amount}");
             });
+        }
+
+        private void SetView(ZoneData zoneData, IRewardFactory rewardFactory)
+        {
+            var totalRewardCount = zoneData.zoneRewardsDataSo.RewardModels.Count;
+            List<RewardItem> wheelRewardItems = new List<RewardItem>();
+            for (int i = 0; i < totalRewardCount; i++)
+            {
+                var transformData = _wheelModel.GetPositionAndRotation(totalRewardCount, i);
+                var rewardData = zoneData.zoneRewardsDataSo.RewardModels[i];
+                var rewardItem = rewardFactory.CreateReward(rewardData);
+                rewardItem.transform.SetParent(_wheelView.RewardItemParent);
+                rewardItem.transform.localPosition = transformData.position;
+                rewardItem.transform.localRotation = transformData.rotation;
+                wheelRewardItems.Add(rewardItem);
+            }
+            _wheelView.SetRewardItems(wheelRewardItems);
+            _wheelView.SetView(zoneData);
         }
         
         private ZoneRewardData GetStoppedZoneItem(float finalAngle)

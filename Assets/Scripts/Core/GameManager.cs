@@ -1,8 +1,7 @@
-using System;
 using GameDeveloperDemo.Controller;
+using GameDeveloperDemo.Factories;
 using GameDeveloperDemo.Model;
 using GameDeveloperDemo.ScriptableObjects;
-using GameDeveloperDemo.View;
 using UnityEngine;
 
 namespace GameDeveloperDemo.Core
@@ -13,11 +12,12 @@ namespace GameDeveloperDemo.Core
 
         [Header("Controllers")]
         [SerializeField] private WheelController wheelController;
-        [SerializeField] private RewardItemGenerator rewardItemGenerator;
         [SerializeField] private ZoneController zoneController;
         [SerializeField] private ReviveScreenScreenController reviveScreenScreenController;
         [SerializeField] private GameCanvasManager gameCanvasManager;
-
+        [SerializeField] private RewardController rewardController;
+        [SerializeField] private RewardStorageController rewardStorageController;
+        
         #endregion
 
         #region Scriptables
@@ -31,8 +31,14 @@ namespace GameDeveloperDemo.Core
         [Header("Prefabs")]
         [SerializeField] private GameCanvasManager gameCanvasManagerPrefab;
         
+        private InventoryModel _inventoryModel;
+        private WheelRewardFactory _wheelRewardFactory;
+        private FlyingRewardFactory _flyingRewardFactory;
         private void Awake()
         {
+            _inventoryModel = new InventoryModel();
+            _wheelRewardFactory = new WheelRewardFactory(rewardController.WheelRewardItemPrefab);
+            _flyingRewardFactory = new FlyingRewardFactory(rewardController.FlyingRewardItemPrefab);
             gameCanvasManager = Instantiate(gameCanvasManagerPrefab);
             InitializeControllers();
         }
@@ -40,10 +46,10 @@ namespace GameDeveloperDemo.Core
         private void InitializeControllers()
         {
             var startingZone = zoneDataSo.GetZoneData(ZoneType.NormalZone);
-            rewardItemGenerator.Initialize(startingZone);
-            wheelController.Initialize(rewardItemGenerator, gameCanvasManager.WheelView, rewardsDataSo, startingZone);
+            wheelController.Initialize(_wheelRewardFactory, gameCanvasManager.WheelView, rewardsDataSo, startingZone);
             zoneController.Initialize(gameCanvasManager.ZoneBarView, zoneDataSo, startingZone);
             reviveScreenScreenController.Initialize(gameCanvasManager.transform);
+            rewardStorageController.Initialize(_flyingRewardFactory, gameCanvasManager.RewardStorageView, rewardsDataSo, gameCanvasManager.transform, gameCanvasManager.WheelView.RewardItemSpawnTransform);
         }
     }
 }

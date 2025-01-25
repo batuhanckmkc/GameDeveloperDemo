@@ -14,7 +14,8 @@ namespace GameDeveloperDemo.View
         [SerializeField] private Image wheel; 
         [SerializeField] private Image pointer;
         [SerializeField] private SpinButton spinButton;
-        public Transform RewardItemSpawnPosition => wheel.transform;
+        public Transform RewardItemSpawnTransform => pointer.transform;
+        public Transform RewardItemParent => wheel.transform;
         private int _lastSliceIndex = -1;
         private List<RewardItem> _rewardItems = new();
         private RewardsDataSO _rewardsDataSo;
@@ -67,10 +68,9 @@ namespace GameDeveloperDemo.View
             return _rewardItems[rewardIndex].ZoneRewardData;
         }
         
-        public void SetRewardItems(List<RewardItem> rewardItems, ZoneData zoneData)
+        public void SetRewardItems(List<RewardItem> rewardItems)
         {
             _rewardItems = rewardItems;
-            SetView(zoneData);
         }
         
         public void SetView(ZoneData zoneData)
@@ -85,7 +85,8 @@ namespace GameDeveloperDemo.View
             List<ZoneRewardData> rewards = zoneData.zoneRewardsDataSo.RewardModels;
             for (int i = 0; i < _rewardItems.Count; i++)
             {
-                _rewardItems[i].SetRewardUI(rewards[i], _rewardsDataSo.GetSprite(rewards[i].rewardConfigurationData.rewardType));
+                _rewardItems[i].InjectData(rewards[i]);
+                _rewardItems[i].SetRewardUI(_rewardsDataSo.GetSprite(rewards[i].rewardConfigurationData.rewardType));
             }
         }
 
