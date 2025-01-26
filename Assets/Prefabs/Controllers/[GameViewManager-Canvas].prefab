@@ -120,7 +120,7 @@ MonoBehaviour:
   zoneBarView: {fileID: 2523122808600415842}
   wheelView: {fileID: 6827064134037640024}
   rewardStorageView: {fileID: 4059112410269693229}
-  currencyView: {fileID: 679122073829001262}
+  inventoryView: {fileID: 679122073829001262}
 --- !u!1001 &4855445252156178668
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -130,7 +130,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1403758408351554461, guid: a50737c6daff34ad68c05e0f3c22f1be, type: 3}
       propertyPath: m_Name
-      value: CurrencyView
+      value: InventoryView
       objectReference: {fileID: 0}
     - target: {fileID: 7174502035535053963, guid: a50737c6daff34ad68c05e0f3c22f1be, type: 3}
       propertyPath: m_Pivot.x

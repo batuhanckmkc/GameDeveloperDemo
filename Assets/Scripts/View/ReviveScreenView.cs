@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,10 +10,35 @@ namespace GameDeveloperDemo.View
         [SerializeField] private GameObject root;
         [SerializeField] private Button giveUpButton;
         [SerializeField] private Button reviveButton;
-        public static event Action OnRevive;
+        [SerializeField] private TextMeshProUGUI reviveCostText;
+        [SerializeField] private TextMeshProUGUI notEnoughGoldText;
+
+        public static event Action<int> OnRevive;
         public static event Action OnGiveUp;
-        public void Show() => root.gameObject.SetActive(true);
-        private void Hide() => root.gameObject.SetActive(false);
+        private int _reviveCost;
+        public void Initialize(int reviveCost)
+        {
+            _reviveCost = reviveCost;
+        }
+        
+        public void Show()
+        {
+            reviveCostText.SetText(_reviveCost.ToString());
+            root.gameObject.SetActive(true);
+        }
+
+        private void Hide()
+        {
+            reviveButton.interactable = true;
+            notEnoughGoldText.gameObject.SetActive(false);
+            root.gameObject.SetActive(false);
+        }
+
+        public void UpdateViewAccordingEnoughGold(bool isEnoughGold)
+        {
+            reviveButton.interactable = !isEnoughGold;
+            notEnoughGoldText.gameObject.SetActive(isEnoughGold);
+        }
 
         private void OnEnable()
         {
@@ -45,7 +71,7 @@ namespace GameDeveloperDemo.View
         private void Revive()
         {
             Hide();
-            OnRevive?.Invoke();
+            OnRevive?.Invoke(_reviveCost);
         }
     }
 }

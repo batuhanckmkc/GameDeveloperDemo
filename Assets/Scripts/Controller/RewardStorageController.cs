@@ -108,7 +108,7 @@ namespace GameDeveloperDemo.Controller
                 flyingReward.transform.SetAsLastSibling();
                 sequence.PrependInterval(flyInterval);
                 sequence.Join(flyingReward.ScaleUp());
-                sequence.Join(flyingReward.Fly(_rewardStorageView.Container.position));
+                sequence.Join(flyingReward.Fly(_rewardStorageView.ParentTransform.position));
             }
         }
 

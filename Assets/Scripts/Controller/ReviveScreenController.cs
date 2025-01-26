@@ -4,11 +4,12 @@ using UnityEngine;
 
 namespace GameDeveloperDemo.Controller
 {
-    public class ReviveScreenScreenController : MonoBehaviour
+    public class ReviveScreenController : MonoBehaviour
     {
         [SerializeField] private ReviveScreenView reviveScreenViewPrefab;
         private ReviveScreenView _reviveScreenView;
         private Transform _reviveScreenSpawnTransform;
+        private readonly int _reviveCost = 25;
         public void Initialize(Transform reviveScreenSpawnTransform)
         {
             _reviveScreenSpawnTransform = reviveScreenSpawnTransform;
@@ -50,7 +51,9 @@ namespace GameDeveloperDemo.Controller
         private void CreateGameOverView()
         {
             _reviveScreenView ??= Instantiate(reviveScreenViewPrefab, _reviveScreenSpawnTransform);
+            _reviveScreenView.Initialize(_reviveCost);
             _reviveScreenView.Show();
+            _reviveScreenView.UpdateViewAccordingEnoughGold(InventoryModel.Gold < _reviveCost);
         }
     }
 }

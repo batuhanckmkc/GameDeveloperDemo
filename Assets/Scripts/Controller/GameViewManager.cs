@@ -8,10 +8,10 @@ namespace GameDeveloperDemo.Controller
         [SerializeField] private ZoneBarView zoneBarView;
         [SerializeField] private WheelView wheelView;
         [SerializeField] private RewardStorageView rewardStorageView;
-        [SerializeField] private CurrencyView currencyView;
+        [SerializeField] private InventoryView inventoryView;
         public ZoneBarView ZoneBarView => zoneBarView;
         public WheelView WheelView => wheelView;
         public RewardStorageView RewardStorageView => rewardStorageView;
-        public CurrencyView CurrencyView => currencyView;
+        public InventoryView InventoryView => inventoryView;
     }
 }

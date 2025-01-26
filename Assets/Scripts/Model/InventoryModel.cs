@@ -9,6 +9,7 @@ namespace GameDeveloperDemo.Model
     public class InventoryModel : IDisposable
     {
         private readonly Dictionary<RewardType, ZoneRewardData> _inventoryDictionary = new();
+        public static int Gold;
 
         public InventoryModel()
         {
@@ -25,14 +26,34 @@ namespace GameDeveloperDemo.Model
         {
             RewardStorageController.OnTakeRewards += UpdateInventory;
             ReviveScreenView.OnGiveUp += ClearInventory;
+            ReviveScreenView.OnRevive += SpendGold;
         }
         
         private void UnsubscribeEvents()
         {
             RewardStorageController.OnTakeRewards -= UpdateInventory;
             ReviveScreenView.OnGiveUp -= ClearInventory;
+            ReviveScreenView.OnRevive -= SpendGold;
         }
 
+        private void SpendGold(int cost)
+        {
+            if (Gold >= cost)
+            {
+                Gold -= cost;
+                if (_inventoryDictionary.TryGetValue(RewardType.Gold, out var goldReward))
+                {
+                    goldReward.amount = Gold;
+                }
+
+                Debug.Log($"Spend successful! Remaining gold: {Gold}");
+            }
+            else
+            {
+                Debug.LogWarning("Not enough gold to spend!");
+            }
+        }
+        
         private void UpdateInventory(Dictionary<RewardType, StorageRewardItem> rewardStorageDictionary)
         {
             foreach (var rewardItem in rewardStorageDictionary.Values)
@@ -50,6 +71,11 @@ namespace GameDeveloperDemo.Model
                         rewardConfigurationData = rewardData.rewardConfigurationData,
                         amount = rewardData.amount
                     };
+                }
+                
+                if (_inventoryDictionary.TryGetValue(RewardType.Gold, out var goldReward))
+                {
+                    Gold = goldReward.amount;
                 }
             }
             Debug.Log("Inventory updated with rewards.");

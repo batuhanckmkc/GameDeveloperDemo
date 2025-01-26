@@ -53,10 +53,10 @@ MonoBehaviour:
   gameViewManager: {fileID: 723988018216592663, guid: b13dcb0366bc144c98008747750e57ec, type: 3}
   wheelController: {fileID: 7779912421437255644}
   zoneController: {fileID: 7608434382486216420}
-  reviveScreenScreenController: {fileID: 3047802564895006300}
+  reviveScreenController: {fileID: 3047802564895006300}
   rewardController: {fileID: 8352431719042775474}
   rewardStorageController: {fileID: 8192423458527674311}
-  currencyController: {fileID: 7323612651173505249}
+  inventoryController: {fileID: 7323612651173505249}
   zoneDataSo: {fileID: 11400000, guid: 8fdb5b1ff15384350bcd79c7511c58d8, type: 2}
   rewardsDataSo: {fileID: 11400000, guid: dca8785b99f034276b57b2eb2531af3c, type: 2}
   gameViewManagerPrefab: {fileID: 723988018216592663, guid: b13dcb0366bc144c98008747750e57ec, type: 3}
@@ -361,7 +361,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2737011683158102274, guid: adf0485ec333446e7ad78fb7b880df95, type: 3}
       propertyPath: m_Name
-      value: CurrencyController
+      value: InventoryController
       objectReference: {fileID: 0}
     - target: {fileID: 2737011683158102284, guid: adf0485ec333446e7ad78fb7b880df95, type: 3}
       propertyPath: m_RootOrder

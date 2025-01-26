@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GameDeveloperDemo.View
 {
-    public class CurrencyView : MonoBehaviour
+    public class InventoryView : MonoBehaviour
     {
         [SerializeField] private Transform container;
         private readonly List<StorageRewardItem> _storageRewardItems = new();

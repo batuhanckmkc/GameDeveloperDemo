@@ -3,6 +3,7 @@ using GameDeveloperDemo.Factories;
 using GameDeveloperDemo.Model;
 using GameDeveloperDemo.ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GameDeveloperDemo.Core
 {
@@ -14,10 +15,10 @@ namespace GameDeveloperDemo.Core
         [SerializeField] private GameViewManager gameViewManager;
         [SerializeField] private WheelController wheelController;
         [SerializeField] private ZoneController zoneController;
-        [SerializeField] private ReviveScreenScreenController reviveScreenScreenController;
+        [SerializeField] private ReviveScreenController reviveScreenController;
         [SerializeField] private RewardController rewardController;
         [SerializeField] private RewardStorageController rewardStorageController;
-        [SerializeField] private CurrencyController currencyController;
+        [SerializeField] private InventoryController inventoryController;
 
         #endregion
 
@@ -54,9 +55,9 @@ namespace GameDeveloperDemo.Core
             
             zoneController.Initialize(gameViewManager.ZoneBarView, zoneDataSo, startingZone, initialZoneModel);
             wheelController.Initialize(_wheelRewardFactory, gameViewManager.WheelView, rewardsDataSo, initialZoneModel);
-            reviveScreenScreenController.Initialize(gameViewManager.transform);
+            reviveScreenController.Initialize(gameViewManager.transform);
             rewardStorageController.Initialize(_flyingRewardFactory, _storageRewardFactory, gameViewManager.RewardStorageView, rewardsDataSo, gameViewManager.WheelView.RewardItemSpawnTransform);
-            currencyController.Initialize(gameViewManager.CurrencyView, _storageRewardFactory, rewardsDataSo, _inventoryModel);
+            inventoryController.Initialize(gameViewManager.InventoryView, _storageRewardFactory, rewardsDataSo, _inventoryModel);
         }
 
         private void OnDestroy()

@@ -7,17 +7,17 @@ using UnityEngine;
 
 namespace GameDeveloperDemo.Controller
 {
-    public class CurrencyController : MonoBehaviour
+    public class InventoryController : MonoBehaviour
     {
         private RewardsDataSO _rewardsDataSo;
         private StorageRewardFactory _storageRewardFactory;
-        private CurrencyView _currencyView;
+        private InventoryView _inventoryView;
         private InventoryModel _inventoryModel;
 
         private readonly Dictionary<RewardType, StorageRewardItem> _rewardItemViewDictionary = new();
-        public void Initialize(CurrencyView currencyView, StorageRewardFactory storageRewardFactory, RewardsDataSO rewardsDataSo, InventoryModel inventoryModel)
+        public void Initialize(InventoryView inventoryView, StorageRewardFactory storageRewardFactory, RewardsDataSO rewardsDataSo, InventoryModel inventoryModel)
         {
-            _currencyView = currencyView;
+            _inventoryView = inventoryView;
             _storageRewardFactory = storageRewardFactory;
             _rewardsDataSo = rewardsDataSo;
             _inventoryModel = inventoryModel;
@@ -37,12 +37,14 @@ namespace GameDeveloperDemo.Controller
         {
             RewardStorageController.OnExit += UpdateInventory;
             ReviveScreenView.OnGiveUp += ClearItems;
+            ReviveScreenView.OnRevive += OnRevive;
         }
 
         private void UnsubscribeEvents()
         {
             RewardStorageController.OnExit -= UpdateInventory;
             ReviveScreenView.OnGiveUp -= ClearItems;
+            ReviveScreenView.OnRevive -= OnRevive;
         }
 
         private void UpdateInventory()
@@ -60,16 +62,28 @@ namespace GameDeveloperDemo.Controller
                     var newRewardItem = _storageRewardFactory.CreateReward(rewardData) as StorageRewardItem;
                     newRewardItem.InjectData(rewardData);
                     newRewardItem.SetRewardUI(_rewardsDataSo.GetSprite(rewardData.rewardConfigurationData.rewardType));
-                    _currencyView.AddRewardItem(newRewardItem);
+                    _inventoryView.AddRewardItem(newRewardItem);
 
                     _rewardItemViewDictionary[rewardData.rewardConfigurationData.rewardType] = newRewardItem;
                 }
             }
         }
 
+        private void OnRevive(int reviveCost)
+        {
+            if (_rewardItemViewDictionary.TryGetValue(RewardType.Gold, out var goldRewardItem))
+            {
+                if (goldRewardItem.ZoneRewardData.amount >= reviveCost)
+                {
+                    goldRewardItem.ZoneRewardData.amount -= reviveCost;
+                    goldRewardItem.SetRewardUI(_rewardsDataSo.GetSprite(goldRewardItem.ZoneRewardData.rewardConfigurationData.rewardType));
+                }
+            }
+        }
+        
         private void ClearItems()
         {
-            _currencyView.ClearItems();
+            _inventoryView.ClearItems();
             _rewardItemViewDictionary.Clear();
         }
     }
