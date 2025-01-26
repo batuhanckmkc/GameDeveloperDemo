@@ -7,15 +7,15 @@ namespace GameDeveloperDemo.View
 {
     public abstract class RewardItem : MonoBehaviour
     {
-        [SerializeField] private Image rewardImage;
-        [SerializeField] private TextMeshProUGUI rewardText;
+        [SerializeField] protected Image rewardImage;
+        [SerializeField] protected TextMeshProUGUI rewardText;
         public ZoneRewardData ZoneRewardData { get; private set; }
 
         public void InjectData(ZoneRewardData zoneRewardData)
         {
             ZoneRewardData = zoneRewardData;
         }
-        public void SetRewardUI(Sprite sprite)
+        public virtual void SetRewardUI(Sprite sprite)
         {
             rewardImage.sprite = sprite;
             rewardText.text = $"x{ZoneRewardData.amount}";

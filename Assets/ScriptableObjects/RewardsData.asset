@@ -24,7 +24,7 @@ MonoBehaviour:
   - rewardConfigurationData:
       rewardType: 15
       tierType: 0
-    sprite: {fileID: 21300000, guid: be4e85f11dac649d89c99749f7735a97, type: 3}
+    sprite: {fileID: 21300000, guid: 2aba3d1dc9cb24b59a02cc0d7e750a6c, type: 3}
   - rewardConfigurationData:
       rewardType: 20
       tierType: 1

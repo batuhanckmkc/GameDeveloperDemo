@@ -34,11 +34,14 @@ namespace GameDeveloperDemo.Core
         private InventoryModel _inventoryModel;
         private WheelRewardFactory _wheelRewardFactory;
         private FlyingRewardFactory _flyingRewardFactory;
+        private StorageRewardFactory _storageRewardFactory;
         private void Awake()
         {
             _inventoryModel = new InventoryModel();
             _wheelRewardFactory = new WheelRewardFactory(rewardController.WheelRewardItemPrefab);
             _flyingRewardFactory = new FlyingRewardFactory(rewardController.FlyingRewardItemPrefab);
+            _storageRewardFactory = new StorageRewardFactory(rewardController.StorageRewardItem);
+            
             gameCanvasManager = Instantiate(gameCanvasManagerPrefab);
             InitializeControllers();
         }

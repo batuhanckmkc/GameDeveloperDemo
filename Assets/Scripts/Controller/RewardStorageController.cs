@@ -48,23 +48,30 @@ namespace GameDeveloperDemo.Controller
             if(reward.rewardConfigurationData.rewardType == RewardType.Bomb)
                 return;
 
-            var rewardItem = _flyingRewardFactory.CreateReward(reward);
-            rewardItem.transform.SetParent(_parentTransform);
-            rewardItem.transform.position = _rewardItemSpawnTransform.position;
-            rewardItem.SetRewardUI(_rewardsDataSo.GetSprite(reward.rewardConfigurationData.rewardType));
-            AnimateReward(rewardItem);
+
+            float flyInterval = 0.15f;
+            var sequence = DOTween.Sequence();
+            var rewardItemList = _flyingRewardFactory.CreateMultipleRewards(reward, GetRewardFlyAmount(reward));
+            for (int i = 0; i < rewardItemList.Count; i++)
+            {
+                rewardItemList[i].transform.SetParent(_parentTransform);
+                rewardItemList[i].transform.position = _rewardItemSpawnTransform.position;
+                rewardItemList[i].transform.SetAsLastSibling();
+                rewardItemList[i].SetSprite(_rewardsDataSo.GetSprite(reward.rewardConfigurationData.rewardType));
+                rewardItemList[i].SetAmount(i == 0);
+
+                sequence.PrependInterval(flyInterval);
+                sequence.Join(rewardItemList[i].ScaleUp());
+                sequence.Join(rewardItemList[i].Fly(_rewardStorageView.Container.position));
+            }
         }
 
-        private void AnimateReward(RewardItem rewardItem)
+        private int GetRewardFlyAmount(ZoneRewardData zoneRewardData)
         {
-            var animationDuration = 0.65f; 
-            rewardItem.transform.DOMove(_rewardStorageView.Container.position, animationDuration)
-                .SetEase(Ease.InBack)
-                .OnComplete(() =>
-                {
-                    Debug.Log("Reward animation completed.");
-                    Destroy(rewardItem.gameObject);
-                });
+            var flyAmount = zoneRewardData.rewardConfigurationData.rewardType == RewardType.Gold || zoneRewardData.amount >= 5
+                ? 5
+                : zoneRewardData.amount;
+            return flyAmount;
         }
     }
 }

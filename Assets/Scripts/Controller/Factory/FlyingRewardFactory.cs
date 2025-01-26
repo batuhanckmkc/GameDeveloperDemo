@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using GameDeveloperDemo.Controller;
 using GameDeveloperDemo.Model;
 using GameDeveloperDemo.View;
@@ -18,6 +19,17 @@ namespace GameDeveloperDemo.Factories
             FlyingWheelRewardItem flyingReward = Object.Instantiate(_flyingRewardPrefab);
             flyingReward.InjectData(zoneRewardData);
             return flyingReward;
+        }
+        
+        public List<FlyingWheelRewardItem> CreateMultipleRewards(ZoneRewardData zoneRewardData, int createCount)
+        {
+            List<FlyingWheelRewardItem> flyingWheelRewardItems = new List<FlyingWheelRewardItem>();
+            for (int i = 0; i < createCount; i++)
+            {
+                var flyingReward = CreateReward(zoneRewardData) as FlyingWheelRewardItem;
+                flyingWheelRewardItems.Add(flyingReward);
+            }
+            return flyingWheelRewardItems;
         }
     }
 }
