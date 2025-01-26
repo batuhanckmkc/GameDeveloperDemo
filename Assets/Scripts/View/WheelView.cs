@@ -54,16 +54,28 @@ namespace GameDeveloperDemo.View
 
         public void RotateWheel(float sliceAngle, float finalAngle, float duration, Action onComplete)
         {
+            float pointerStartDelay = 0.5f;
+            float stopAnimationThresholdRatio = 0.1f;
+            float startTime = Time.time + pointerStartDelay;
+            float stopAnimatingThreshold = duration * stopAnimationThresholdRatio;
             wheel.transform.DORotate(new Vector3(0, 0, -finalAngle), duration, RotateMode.FastBeyond360)
                 .SetEase(Ease.InOutQuart)
-                .OnUpdate(()=> AnimatePointer(sliceAngle, duration))
-                .OnComplete(()=>
+                .OnUpdate(() =>
+                {
+                    float elapsedTime = Time.time - (startTime - pointerStartDelay);
+                    float remainingTime = duration - elapsedTime;
+                    if (Time.time >= startTime && remainingTime > stopAnimatingThreshold)
+                    {
+                        AnimatePointer(sliceAngle, duration);
+                    }
+                })
+                .OnComplete(() =>
                 {
                     pointer.DOKill();
                     onComplete?.Invoke();
                 });
         }
-        
+
         private void AnimatePointer(float sliceAngle, float duration)
         {
             float currentAngle = wheel.transform.rotation.eulerAngles.z % Constants.CircleAngle;
@@ -72,6 +84,7 @@ namespace GameDeveloperDemo.View
             {
                 _lastSliceIndex = currentSliceIndex;
                 float speed = Mathf.Abs(sliceAngle / (duration * PointerSpeed));
+
                 pointer.transform.DORotate(new Vector3(0, 0, PointerMoveAngle), speed)
                     .SetEase(Ease.OutCirc)
                     .OnComplete(() =>
