@@ -26,13 +26,13 @@ MonoBehaviour:
       tierType: 0
     amount: 100
   - rewardConfigurationData:
-      rewardType: 25
-      tierType: 0
-    amount: 125
+      rewardType: 50
+      tierType: 3
+    amount: 1
   - rewardConfigurationData:
-      rewardType: 15
-      tierType: 0
-    amount: 150
+      rewardType: 45
+      tierType: 1
+    amount: 1
   - rewardConfigurationData:
       rewardType: 55
       tierType: 1

@@ -26,8 +26,8 @@ MonoBehaviour:
       tierType: 0
     amount: 1
   - rewardConfigurationData:
-      rewardType: 75
-      tierType: 0
+      rewardType: 55
+      tierType: 1
     amount: 1
   - rewardConfigurationData:
       rewardType: 70
