@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using GameDeveloperDemo.Factories;
@@ -17,6 +18,7 @@ namespace GameDeveloperDemo.Controller
         private Transform _rewardItemSpawnTransform;
 
         private readonly Dictionary<RewardType, StorageRewardItem> _rewardStorageDictionary = new();
+        public static event Action OnExit;
 
         public void Initialize(
             FlyingRewardFactory flyingRewardFactory,
@@ -30,6 +32,7 @@ namespace GameDeveloperDemo.Controller
             _flyingRewardFactory = flyingRewardFactory;
             _rewardStorageView = rewardStorageView;
             _rewardItemSpawnTransform = rewardItemSpawnTransform;
+            _rewardStorageView.Initialize(OnExitButtonClicked);
         }
 
         private void OnEnable()
@@ -42,14 +45,23 @@ namespace GameDeveloperDemo.Controller
             UnsubscribeEvents();
         }
 
+        private void OnDestroy()
+        {
+            _rewardStorageView.Deinitialize(OnExitButtonClicked);
+        }
+
         private void SubscribeEvents()
         {
+            WheelController.OnSpinClick += OnSpinClick;
             WheelController.OnSpinComplete += ProcessReward;
+            ZoneController.OnZoneChange += OnZoneChange;
         }
 
         private void UnsubscribeEvents()
         {
+            WheelController.OnSpinClick -= OnSpinClick;
             WheelController.OnSpinComplete -= ProcessReward;
+            ZoneController.OnZoneChange -= OnZoneChange;
         }
 
         private void ProcessReward(ZoneRewardData reward)
@@ -101,6 +113,36 @@ namespace GameDeveloperDemo.Controller
         {
             const int rewardFlyLimit = 5;
             return Mathf.Min(zoneRewardData.amount, rewardFlyLimit);
+        }
+
+        private void ClearAllRewards()
+        {
+            foreach (var rewardItem in _rewardStorageDictionary.Values)
+            {
+                if (rewardItem != null)
+                {
+                    Destroy(rewardItem.gameObject);
+                }
+            }
+
+            _rewardStorageDictionary.Clear();
+            Debug.Log("All rewards and dictionary cleared.");
+        }
+        
+        private void OnExitButtonClicked()
+        {
+            ClearAllRewards();
+            OnExit?.Invoke();
+        }
+        
+        private void OnZoneChange(ZoneModel zoneModel)
+        {
+            _rewardStorageView.UpdateExitButtonState(zoneModel.ZoneData.zoneType is ZoneType.SafeZone or ZoneType.SuperZone);
+        }
+
+        private void OnSpinClick()
+        {
+            _rewardStorageView.UpdateExitButtonState(false);
         }
     }
 }

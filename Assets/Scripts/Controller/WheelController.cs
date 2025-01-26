@@ -9,6 +9,7 @@ namespace GameDeveloperDemo.Controller
 {
     public class WheelController : MonoBehaviour
     {
+        public static event Action OnSpinClick;
         public static event Action<ZoneRewardData> OnSpinComplete;
         private WheelModel _wheelModel;
         private WheelView _wheelView;
@@ -51,6 +52,7 @@ namespace GameDeveloperDemo.Controller
             Debug.Log("Spin button clicked!");
             var sliceAngle = _wheelModel.GetSliceAngle();
             var finalAngle = _wheelModel.GetFinalAngle();
+            OnSpinClick?.Invoke();
             _wheelView.CloseSpinButton();
             _wheelView.RotateWheel(sliceAngle, finalAngle, 3f,() =>
             {

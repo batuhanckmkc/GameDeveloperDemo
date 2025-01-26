@@ -26,13 +26,15 @@ namespace GameDeveloperDemo.Controller
         private void OnEnable()
         {
             WheelController.OnSpinComplete += IncreaseZone;
-            ReviveScreenView.OnGiveUp += OnGiveUp;
+            ReviveScreenView.OnGiveUp += ResetZone;
+            RewardStorageController.OnExit += ResetZone;
         }
 
         private void OnDisable()
         {
             WheelController.OnSpinComplete -= IncreaseZone;
-            ReviveScreenView.OnGiveUp -= OnGiveUp;
+            ReviveScreenView.OnGiveUp -= ResetZone;
+            RewardStorageController.OnExit -= ResetZone;
         }
         
         private void IncreaseZone(ZoneRewardData zoneRewardData)
@@ -61,7 +63,7 @@ namespace GameDeveloperDemo.Controller
             }
         }
 
-        private void OnGiveUp()
+        private void ResetZone()
         {
             _zoneModel.ResetZone();
             _zoneModel.SetZoneData(_startingZone);
