@@ -8,17 +8,17 @@ namespace GameDeveloperDemo.Controller
 {
     public class ZoneController : MonoBehaviour
     {
-        public static event Action<ZoneData> OnZoneChange;
+        public static event Action<ZoneModel>OnZoneChange;
         private ZoneBarView _zoneBarView;
         private ZoneModel _zoneModel;
         private ZoneDataSO _zoneDataSo;
         private ZoneData _startingZone;
-        public void Initialize(ZoneBarView zoneBarView, ZoneDataSO zoneDataSo, ZoneData startingZone)
+        public void Initialize(ZoneBarView zoneBarView, ZoneDataSO zoneDataSo, ZoneData startingZone, ZoneModel initialZoneModel)
         {
             _startingZone = startingZone;
             _zoneBarView = zoneBarView;
             _zoneDataSo = zoneDataSo;
-            _zoneModel = new ZoneModel();
+            _zoneModel = initialZoneModel;
             _zoneModel.SetZoneData(startingZone);
             _zoneBarView.Initialize(_zoneModel, zoneDataSo);
         }
@@ -54,7 +54,7 @@ namespace GameDeveloperDemo.Controller
                 {
                     _zoneModel.SetZoneData(zoneData);
                     _zoneBarView.ShiftNumbers(_zoneModel);
-                    OnZoneChange?.Invoke(zoneData);
+                    OnZoneChange?.Invoke(_zoneModel);
                     Debug.Log("Update Zone" + zoneData.zoneType);
                     break;
                 }
@@ -66,7 +66,7 @@ namespace GameDeveloperDemo.Controller
             _zoneModel.ResetZone();
             _zoneModel.SetZoneData(_startingZone);
             _zoneBarView.ResetZoneBar(_zoneModel);
-            OnZoneChange?.Invoke(_startingZone);
+            OnZoneChange?.Invoke(_zoneModel);
         }
     }
 }

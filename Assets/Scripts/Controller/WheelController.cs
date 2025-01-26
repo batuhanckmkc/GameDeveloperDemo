@@ -14,13 +14,13 @@ namespace GameDeveloperDemo.Controller
         private WheelView _wheelView;
         private RewardsDataSO _rewardsDataSo;
 
-        public void Initialize(IRewardFactory rewardFactory, WheelView wheelView, RewardsDataSO rewardsDataSo, ZoneData startingZone)
+        public void Initialize(IRewardFactory rewardFactory, WheelView wheelView, RewardsDataSO rewardsDataSo, ZoneModel initialZoneModel)
         {
             _wheelModel = new WheelModel();
             _rewardsDataSo = rewardsDataSo;
             _wheelView = wheelView;
             _wheelView.Initialize(OnSpinButtonClicked, _rewardsDataSo);
-            SetView(startingZone, rewardFactory);
+            SetInitialView(initialZoneModel, rewardFactory);
         }
 
         private void OnEnable()
@@ -61,14 +61,14 @@ namespace GameDeveloperDemo.Controller
             });
         }
 
-        private void SetView(ZoneData zoneData, IRewardFactory rewardFactory)
+        private void SetInitialView(ZoneModel initialZoneModel, IRewardFactory rewardFactory)
         {
-            var totalRewardCount = zoneData.zoneRewardsDataSo.RewardModels.Count;
+            var totalRewardCount = initialZoneModel.ZoneData.zoneRewardsDataSo.RewardModels.Count;
             List<RewardItem> wheelRewardItems = new List<RewardItem>();
             for (int i = 0; i < totalRewardCount; i++)
             {
                 var transformData = _wheelModel.GetPositionAndRotation(totalRewardCount, i);
-                var rewardData = zoneData.zoneRewardsDataSo.RewardModels[i];
+                var rewardData = initialZoneModel.ZoneData.zoneRewardsDataSo.RewardModels[i];
                 var rewardItem = rewardFactory.CreateReward(rewardData);
                 rewardItem.transform.SetParent(_wheelView.RewardItemParent);
                 rewardItem.transform.localPosition = transformData.position;
@@ -76,7 +76,7 @@ namespace GameDeveloperDemo.Controller
                 wheelRewardItems.Add(rewardItem);
             }
             _wheelView.SetRewardItems(wheelRewardItems);
-            _wheelView.SetView(zoneData);
+            _wheelView.SetView(initialZoneModel);
         }
         
         private ZoneRewardData GetStoppedZoneItem(float finalAngle)
@@ -90,9 +90,9 @@ namespace GameDeveloperDemo.Controller
             _wheelView.ResetView();
         }
         
-        private void OnZoneChange(ZoneData zoneData)
+        private void OnZoneChange(ZoneModel zoneModel)
         {
-            _wheelView.SetView(zoneData);
+            _wheelView.SetView(zoneModel);
         }
     }
 }

@@ -46,8 +46,10 @@ namespace GameDeveloperDemo.Core
         private void InitializeControllers()
         {
             var startingZone = zoneDataSo.GetZoneData(ZoneType.NormalZone);
-            wheelController.Initialize(_wheelRewardFactory, gameCanvasManager.WheelView, rewardsDataSo, startingZone);
-            zoneController.Initialize(gameCanvasManager.ZoneBarView, zoneDataSo, startingZone);
+            var initialZoneModel = new ZoneModel(startingZone);
+            
+            zoneController.Initialize(gameCanvasManager.ZoneBarView, zoneDataSo, startingZone, initialZoneModel);
+            wheelController.Initialize(_wheelRewardFactory, gameCanvasManager.WheelView, rewardsDataSo, initialZoneModel);
             reviveScreenScreenController.Initialize(gameCanvasManager.transform);
             rewardStorageController.Initialize(_flyingRewardFactory, gameCanvasManager.RewardStorageView, rewardsDataSo, gameCanvasManager.transform, gameCanvasManager.WheelView.RewardItemSpawnTransform);
         }

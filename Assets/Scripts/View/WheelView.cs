@@ -73,20 +73,28 @@ namespace GameDeveloperDemo.View
             _rewardItems = rewardItems;
         }
         
-        public void SetView(ZoneData zoneData)
+        public void SetView(ZoneModel zoneModel)
         {
-            wheel.sprite = zoneData.wheelSprite;
-            pointer.sprite = zoneData.pointerSprite;
-            UpdateRewardItemsView(zoneData);
+            wheel.sprite = zoneModel.ZoneData.wheelSprite;
+            pointer.sprite = zoneModel.ZoneData.pointerSprite;
+            UpdateRewardItemsView(zoneModel);
         }
 
-        private void UpdateRewardItemsView(ZoneData zoneData)
+        private void UpdateRewardItemsView(ZoneModel zoneModel)
         {
-            List<ZoneRewardData> rewards = zoneData.zoneRewardsDataSo.RewardModels;
+            List<ZoneRewardData> rewards = zoneModel.ZoneData.zoneRewardsDataSo.RewardModels;
             for (int i = 0; i < _rewardItems.Count; i++)
             {
-                _rewardItems[i].InjectData(rewards[i]);
-                _rewardItems[i].SetRewardUI(_rewardsDataSo.GetSprite(rewards[i].rewardConfigurationData.rewardType));
+                var betterRewardInstance = new ZoneRewardData
+                {
+                    rewardConfigurationData = rewards[i].rewardConfigurationData,
+                    amount = rewards[i].amount
+                };
+
+                betterRewardInstance.amount += zoneModel.CurrentZoneIndex / zoneModel.ZoneData.activationAmount - 1;
+                
+                _rewardItems[i].InjectData(betterRewardInstance);
+                _rewardItems[i].SetRewardUI(_rewardsDataSo.GetSprite(betterRewardInstance.rewardConfigurationData.rewardType));
             }
         }
 

@@ -15,57 +15,133 @@ MonoBehaviour:
   rewardModels:
   - rewardConfigurationData:
       rewardType: 5
-      tierType: 0
+      tierType: 1
     sprite: {fileID: 21300000, guid: 9c6e9fb5abcdd4e0cabb7a2c0b551d28, type: 3}
   - rewardConfigurationData:
       rewardType: 10
-      tierType: 0
+      tierType: 1
     sprite: {fileID: 21300000, guid: 6e2cfa3d707614dfe8379d336d46d8b4, type: 3}
+  - rewardConfigurationData:
+      rewardType: 15
+      tierType: 0
+    sprite: {fileID: 21300000, guid: be4e85f11dac649d89c99749f7735a97, type: 3}
+  - rewardConfigurationData:
+      rewardType: 20
+      tierType: 1
+    sprite: {fileID: 21300000, guid: 9c843e7a2c7d541b8984e7db00d67195, type: 3}
+  - rewardConfigurationData:
+      rewardType: 20
+      tierType: 2
+    sprite: {fileID: 21300000, guid: 26be3b9b53dff4078a5cd8be13b65fe9, type: 3}
+  - rewardConfigurationData:
+      rewardType: 115
+      tierType: 1
+    sprite: {fileID: 21300000, guid: f097e3abc278345829e6f5e578012819, type: 3}
+  - rewardConfigurationData:
+      rewardType: 115
+      tierType: 2
+    sprite: {fileID: 21300000, guid: 325fe963893c74dddb23ac5952a85904, type: 3}
+  - rewardConfigurationData:
+      rewardType: 115
+      tierType: 3
+    sprite: {fileID: 21300000, guid: c564f8ffa57d14a14b34f3bb83fde10f, type: 3}
+  - rewardConfigurationData:
+      rewardType: 115
+      tierType: 4
+    sprite: {fileID: 21300000, guid: 37f31a159990e446a9da6aaee9d075da, type: 3}
+  - rewardConfigurationData:
+      rewardType: 115
+      tierType: 5
+    sprite: {fileID: 21300000, guid: 3e75310cc882d470b97543ed99ce900a, type: 3}
   - rewardConfigurationData:
       rewardType: 25
       tierType: 0
     sprite: {fileID: 21300000, guid: 1b016bb486caf48d89f3c15c5c13c851, type: 3}
   - rewardConfigurationData:
-      rewardType: 40
-      tierType: 0
-    sprite: {fileID: 21300000, guid: fb7e971070d8543a08f201f6a6cf9d00, type: 3}
-  - rewardConfigurationData:
-      rewardType: 20
-      tierType: 0
-    sprite: {fileID: 21300000, guid: 9c843e7a2c7d541b8984e7db00d67195, type: 3}
+      rewardType: 30
+      tierType: 1
+    sprite: {fileID: 21300000, guid: e4e48e37c91704dea851a596d8f66b7c, type: 3}
   - rewardConfigurationData:
       rewardType: 35
-      tierType: 0
+      tierType: 1
+    sprite: {fileID: 21300000, guid: cb570a66729154decab3d49103bd791f, type: 3}
+  - rewardConfigurationData:
+      rewardType: 35
+      tierType: 2
     sprite: {fileID: 21300000, guid: be4e85f11dac649d89c99749f7735a97, type: 3}
   - rewardConfigurationData:
-      rewardType: 50
-      tierType: 0
-    sprite: {fileID: 21300000, guid: 90760a2d041994d0a9728dcdeb34e663, type: 3}
+      rewardType: 40
+      tierType: 1
+    sprite: {fileID: 21300000, guid: 0c2fda32dfe3a4948abf75896e844c7e, type: 3}
+  - rewardConfigurationData:
+      rewardType: 40
+      tierType: 2
+    sprite: {fileID: 21300000, guid: fb7e971070d8543a08f201f6a6cf9d00, type: 3}
   - rewardConfigurationData:
       rewardType: 45
-      tierType: 0
+      tierType: 1
     sprite: {fileID: 21300000, guid: 69751d3468a564d71a3d7b2024e30e29, type: 3}
   - rewardConfigurationData:
-      rewardType: 70
-      tierType: 0
-    sprite: {fileID: 21300000, guid: 1df285767a00d47f28ce1bca8efb8fc3, type: 3}
+      rewardType: 50
+      tierType: 1
+    sprite: {fileID: 21300000, guid: 4a85fda0c2854455dbaa8d13cb5662eb, type: 3}
+  - rewardConfigurationData:
+      rewardType: 50
+      tierType: 3
+    sprite: {fileID: 21300000, guid: 90760a2d041994d0a9728dcdeb34e663, type: 3}
   - rewardConfigurationData:
       rewardType: 55
-      tierType: 0
+      tierType: 1
+    sprite: {fileID: 21300000, guid: c58d568cb399442318472f71e19f7080, type: 3}
+  - rewardConfigurationData:
+      rewardType: 55
+      tierType: 2
+    sprite: {fileID: 21300000, guid: 5fc26bf06e60c43d69f4e12c082e04d9, type: 3}
+  - rewardConfigurationData:
+      rewardType: 55
+      tierType: 3
     sprite: {fileID: 21300000, guid: cbaecbaa7087e4f8e83059fbf1df4fba, type: 3}
   - rewardConfigurationData:
-      rewardType: 15
-      tierType: 0
-    sprite: {fileID: 21300000, guid: 2aba3d1dc9cb24b59a02cc0d7e750a6c, type: 3}
+      rewardType: 60
+      tierType: 2
+    sprite: {fileID: 21300000, guid: a60a441c482f5403381ac9a89274211a, type: 3}
+  - rewardConfigurationData:
+      rewardType: 65
+      tierType: 1
+    sprite: {fileID: 21300000, guid: 9f734a1e1f6174d7da9116964eadbfa3, type: 3}
+  - rewardConfigurationData:
+      rewardType: 70
+      tierType: 1
+    sprite: {fileID: 21300000, guid: 1df285767a00d47f28ce1bca8efb8fc3, type: 3}
   - rewardConfigurationData:
       rewardType: 75
       tierType: 0
     sprite: {fileID: 21300000, guid: 234330d3dfb53492a901ea7527d4f6c6, type: 3}
   - rewardConfigurationData:
-      rewardType: 65
+      rewardType: 80
       tierType: 0
-    sprite: {fileID: 21300000, guid: 9f734a1e1f6174d7da9116964eadbfa3, type: 3}
+    sprite: {fileID: 21300000, guid: 788f2ba13582e40b0849fa3ec5c26628, type: 3}
   - rewardConfigurationData:
-      rewardType: 35
+      rewardType: 85
       tierType: 0
-    sprite: {fileID: 21300000, guid: be4e85f11dac649d89c99749f7735a97, type: 3}
+    sprite: {fileID: 21300000, guid: 0685b1bc194644d57a4aba3d493fedf1, type: 3}
+  - rewardConfigurationData:
+      rewardType: 90
+      tierType: 0
+    sprite: {fileID: 21300000, guid: 1315b36cba8d5412391c7212fb5937d2, type: 3}
+  - rewardConfigurationData:
+      rewardType: 95
+      tierType: 0
+    sprite: {fileID: 21300000, guid: 6af00451f878d426e95d5af844894658, type: 3}
+  - rewardConfigurationData:
+      rewardType: 100
+      tierType: 0
+    sprite: {fileID: 21300000, guid: cbc4a527f3d4f4f25a7dad157391a381, type: 3}
+  - rewardConfigurationData:
+      rewardType: 105
+      tierType: 0
+    sprite: {fileID: 21300000, guid: 3b981433162404674b6da5a0c3595e2f, type: 3}
+  - rewardConfigurationData:
+      rewardType: 110
+      tierType: 0
+    sprite: {fileID: 21300000, guid: e815696b54a124363a69dcd25c4f1b63, type: 3}

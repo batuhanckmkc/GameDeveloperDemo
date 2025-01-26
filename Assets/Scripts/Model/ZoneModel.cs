@@ -3,7 +3,12 @@ namespace GameDeveloperDemo.Model
     public class ZoneModel
     {
         public ZoneData ZoneData { get; private set; }
-        public int CurrentZoneIndex { get; private set; } = 1;
+        public int CurrentZoneIndex { get; private set; } = ZoneStartIndex;
+        private const int ZoneStartIndex = 1;
+        public ZoneModel(ZoneData zoneData)
+        {
+            ZoneData = zoneData;
+        }
 
         public void SetZoneData(ZoneData zoneData)
         {
@@ -17,7 +22,7 @@ namespace GameDeveloperDemo.Model
         
         public void ResetZone()
         {
-            CurrentZoneIndex = 0;
+            CurrentZoneIndex = ZoneStartIndex;
         }
     }
 }

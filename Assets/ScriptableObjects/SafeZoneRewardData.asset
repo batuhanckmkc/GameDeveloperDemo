@@ -15,14 +15,14 @@ MonoBehaviour:
   rewardModels:
   - rewardConfigurationData:
       rewardType: 5
-      tierType: 0
-    amount: 50
+      tierType: 1
+    amount: 1
   - rewardConfigurationData:
       rewardType: 25
       tierType: 0
     amount: 75
   - rewardConfigurationData:
-      rewardType: 25
+      rewardType: 15
       tierType: 0
     amount: 100
   - rewardConfigurationData:
@@ -30,18 +30,18 @@ MonoBehaviour:
       tierType: 0
     amount: 125
   - rewardConfigurationData:
-      rewardType: 25
+      rewardType: 15
       tierType: 0
     amount: 150
   - rewardConfigurationData:
-      rewardType: 25
-      tierType: 0
-    amount: 175
+      rewardType: 55
+      tierType: 1
+    amount: 1
   - rewardConfigurationData:
-      rewardType: 25
-      tierType: 0
-    amount: 200
+      rewardType: 30
+      tierType: 1
+    amount: 1
   - rewardConfigurationData:
-      rewardType: 25
-      tierType: 0
-    amount: 225
+      rewardType: 20
+      tierType: 1
+    amount: 1

@@ -6,7 +6,7 @@ namespace GameDeveloperDemo.Model
         Glasses = 5,
         Cap = 10,
         Cash = 15,
-        Chest = 20,
+        CommonChest = 20,
         Gold = 25,
         Helmet = 30,
         Grenade = 35,
@@ -24,6 +24,7 @@ namespace GameDeveloperDemo.Model
         RiflePoints = 95,
         ShotgunPoints = 100,
         SmgPoints = 105,
-        SniperPoints = 110
+        SniperPoints = 110,
+        RareChest = 115
     }
 }
