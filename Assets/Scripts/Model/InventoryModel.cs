@@ -1,50 +1,69 @@
 using System;
 using System.Collections.Generic;
 using GameDeveloperDemo.Controller;
+using GameDeveloperDemo.View;
 using UnityEngine;
 
 namespace GameDeveloperDemo.Model
 {
     public class InventoryModel : IDisposable
     {
-        private readonly List<ZoneRewardData> _inventory = new();
+        private readonly Dictionary<RewardType, ZoneRewardData> _inventoryDictionary = new();
 
         public InventoryModel()
         {
             SubscribeEvents();
         }
+        
+        public void Dispose()
+        {
+            UnsubscribeEvents();
+            ClearInventory();
+        }
 
         private void SubscribeEvents()
         {
-            WheelController.OnSpinComplete += AddReward;
-        }
-
-        private void UnsubscribeEvents()
-        {
-            WheelController.OnSpinComplete -= AddReward;
+            RewardStorageController.OnTakeRewards += UpdateInventory;
+            ReviveScreenView.OnGiveUp += ClearInventory;
         }
         
-        private void AddReward(ZoneRewardData reward)
+        private void UnsubscribeEvents()
         {
-            _inventory.Add(reward);
-            Debug.Log($"Added to inventory: {reward.rewardConfigurationData.rewardType} - {reward.amount}");
+            RewardStorageController.OnTakeRewards -= UpdateInventory;
+            ReviveScreenView.OnGiveUp -= ClearInventory;
         }
 
-        public List<ZoneRewardData> GetAllRewards()
+        private void UpdateInventory(Dictionary<RewardType, StorageRewardItem> rewardStorageDictionary)
         {
-            return new List<ZoneRewardData>(_inventory);
+            foreach (var rewardItem in rewardStorageDictionary.Values)
+            {
+                ZoneRewardData rewardData = rewardItem.ZoneRewardData;
+
+                if (_inventoryDictionary.TryGetValue(rewardData.rewardConfigurationData.rewardType, out var existingReward))
+                {
+                    existingReward.amount += rewardData.amount;
+                }
+                else
+                {
+                    _inventoryDictionary[rewardData.rewardConfigurationData.rewardType] = new ZoneRewardData
+                    {
+                        rewardConfigurationData = rewardData.rewardConfigurationData,
+                        amount = rewardData.amount
+                    };
+                }
+            }
+            Debug.Log("Inventory updated with rewards.");
+        }
+
+        public Dictionary<RewardType, ZoneRewardData> GetInventory()
+        {
+            return _inventoryDictionary;
         }
 
         private void ClearInventory()
         {
-            _inventory.Clear();
+            _inventoryDictionary.Clear();
             Debug.Log("Inventory cleared.");
-        }
-
-        public void Dispose()
-        {
-            ClearInventory();
-            UnsubscribeEvents();
         }
     }
 }

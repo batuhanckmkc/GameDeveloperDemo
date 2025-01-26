@@ -19,6 +19,7 @@ namespace GameDeveloperDemo.Controller
 
         private readonly Dictionary<RewardType, StorageRewardItem> _rewardStorageDictionary = new();
         public static event Action OnExit;
+        public static event Action<Dictionary<RewardType, StorageRewardItem>> OnTakeRewards;
 
         public void Initialize(
             FlyingRewardFactory flyingRewardFactory,
@@ -55,6 +56,7 @@ namespace GameDeveloperDemo.Controller
             WheelController.OnSpinClick += OnSpinClick;
             WheelController.OnSpinComplete += ProcessReward;
             ZoneController.OnZoneChange += OnZoneChange;
+            ReviveScreenView.OnGiveUp += ClearAllRewards;
         }
 
         private void UnsubscribeEvents()
@@ -62,6 +64,7 @@ namespace GameDeveloperDemo.Controller
             WheelController.OnSpinClick -= OnSpinClick;
             WheelController.OnSpinComplete -= ProcessReward;
             ZoneController.OnZoneChange -= OnZoneChange;
+            ReviveScreenView.OnGiveUp -= ClearAllRewards;
         }
 
         private void ProcessReward(ZoneRewardData reward)
@@ -114,25 +117,19 @@ namespace GameDeveloperDemo.Controller
             const int rewardFlyLimit = 5;
             return Mathf.Min(zoneRewardData.amount, rewardFlyLimit);
         }
-
+        
         private void ClearAllRewards()
         {
-            foreach (var rewardItem in _rewardStorageDictionary.Values)
-            {
-                if (rewardItem != null)
-                {
-                    Destroy(rewardItem.gameObject);
-                }
-            }
-
+            _rewardStorageView.ClearItems();
             _rewardStorageDictionary.Clear();
             Debug.Log("All rewards and dictionary cleared.");
         }
         
         private void OnExitButtonClicked()
         {
-            ClearAllRewards();
+            OnTakeRewards?.Invoke(_rewardStorageDictionary);
             OnExit?.Invoke();
+            ClearAllRewards();
         }
         
         private void OnZoneChange(ZoneModel zoneModel)

@@ -25,12 +25,22 @@ namespace GameDeveloperDemo.Controller
 
         private void OnEnable()
         {
+            SubscribeEvents();
+        }
+
+        private void OnDisable()
+        {
+            UnsubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
             WheelController.OnSpinComplete += IncreaseZone;
             ReviveScreenView.OnGiveUp += ResetZone;
             RewardStorageController.OnExit += ResetZone;
         }
-
-        private void OnDisable()
+        
+        private void UnsubscribeEvents()
         {
             WheelController.OnSpinComplete -= IncreaseZone;
             ReviveScreenView.OnGiveUp -= ResetZone;

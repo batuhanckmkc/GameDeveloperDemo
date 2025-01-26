@@ -1,6 +1,5 @@
 using System;
-using GameDeveloperDemo.Controller;
-using GameDeveloperDemo.Model;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +12,7 @@ namespace GameDeveloperDemo.View
         [SerializeField] private Button exitButton;
         public Transform Container => container;
         public Transform ParentTransform => parentTransform;
-
+        private readonly List<StorageRewardItem> _storageRewardItems = new();
         public void Initialize(Action onClickExit)
         {
             UpdateExitButtonState(false);
@@ -29,11 +28,21 @@ namespace GameDeveloperDemo.View
         {
             rewardItem.transform.SetParent(container);
             rewardItem.transform.localScale = Vector3.one;
+            _storageRewardItems.Add(rewardItem);
         }
 
         public void UpdateExitButtonState(bool activeState)
         {
             exitButton.interactable = activeState;
+        }
+
+        public void ClearItems()
+        {
+            foreach (var storageRewardItem in _storageRewardItems)
+            {
+                Destroy(storageRewardItem.gameObject);
+            }
+            _storageRewardItems.Clear();
         }
     }
 }
