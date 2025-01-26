@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wheelRewardItemPrefab: {fileID: 7893676526548627974, guid: c03d65c6a2d7a4973adcecc388a9ea44, type: 3}
   flyingWheelRewardItemPrefab: {fileID: 2469424841340763528, guid: 85598bcbd41e24ba1870726dbed6bb8c, type: 3}
+  storageRewardItem: {fileID: 4660605220389102896, guid: 0907e91e8d1024598a0ed29cc214ec0f, type: 3}

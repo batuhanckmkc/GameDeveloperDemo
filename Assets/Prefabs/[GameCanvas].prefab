@@ -354,7 +354,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1403758408351554461, guid: 50c0a3225f4bc4c89a768c02325afab1, type: 3}
       propertyPath: m_Name
-      value: RewardView
+      value: RewardStorageView
       objectReference: {fileID: 0}
     - target: {fileID: 7174502035535053963, guid: 50c0a3225f4bc4c89a768c02325afab1, type: 3}
       propertyPath: m_Pivot.x

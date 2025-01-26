@@ -54,7 +54,7 @@ namespace GameDeveloperDemo.Core
             zoneController.Initialize(gameCanvasManager.ZoneBarView, zoneDataSo, startingZone, initialZoneModel);
             wheelController.Initialize(_wheelRewardFactory, gameCanvasManager.WheelView, rewardsDataSo, initialZoneModel);
             reviveScreenScreenController.Initialize(gameCanvasManager.transform);
-            rewardStorageController.Initialize(_flyingRewardFactory, gameCanvasManager.RewardStorageView, rewardsDataSo, gameCanvasManager.transform, gameCanvasManager.WheelView.RewardItemSpawnTransform);
+            rewardStorageController.Initialize(_flyingRewardFactory, _storageRewardFactory, gameCanvasManager.RewardStorageView, rewardsDataSo, gameCanvasManager.WheelView.RewardItemSpawnTransform);
         }
     }
 }
