@@ -14,9 +14,14 @@ namespace GameDeveloperDemo.ScriptableObjects
 
         private void OnEnable()
         {
-            zoneConfigurations.Sort((x, y) => x.activationAmount.CompareTo(y.activationAmount));
+            SortZones();
         }
 
+        private void SortZones()
+        {
+            zoneConfigurations.Sort((x, y) => x.activationAmount.CompareTo(y.activationAmount));
+        }
+        
         public ZoneData GetZoneData(ZoneType zoneType)
         {
             foreach (var zoneData in zoneConfigurations.Where(setItem => setItem.zoneType == zoneType))
