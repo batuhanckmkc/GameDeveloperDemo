@@ -1,21 +1,25 @@
 using System;
 using System.Collections.Generic;
+using GameDeveloperDemo.Controller.Factory;
 using GameDeveloperDemo.Model;
+using GameDeveloperDemo.Model.Data;
+using GameDeveloperDemo.Model.Enum;
 using GameDeveloperDemo.ScriptableObjects;
 using GameDeveloperDemo.View;
+using GameDeveloperDemo.View.RewardItem;
 using UnityEngine;
 
 namespace GameDeveloperDemo.Controller
 {
     public class WheelController : MonoBehaviour
     {
-        public static event Action OnSpinClick;
         public static event Action<ZoneRewardData> OnSpinComplete;
+        public static event Action OnSpinClick;
         private WheelModel _wheelModel;
         private WheelView _wheelView;
         private RewardsDataSO _rewardsDataSo;
 
-        public void Initialize(IRewardFactory rewardFactory, WheelView wheelView, RewardsDataSO rewardsDataSo, ZoneModel initialZoneModel)
+        public void Initialize(RewardFactory rewardFactory, WheelView wheelView, RewardsDataSO rewardsDataSo, ZoneModel initialZoneModel)
         {
             _wheelModel = new WheelModel();
             _rewardsDataSo = rewardsDataSo;
@@ -61,7 +65,7 @@ namespace GameDeveloperDemo.Controller
             });
         }
 
-        private void SetInitialView(ZoneModel initialZoneModel, IRewardFactory rewardFactory)
+        private void SetInitialView(ZoneModel initialZoneModel, RewardFactory rewardFactory)
         {
             var totalRewardCount = initialZoneModel.ZoneData.zoneRewardsDataSo.RewardModels.Count;
             List<RewardItem> wheelRewardItems = new List<RewardItem>();
@@ -69,7 +73,7 @@ namespace GameDeveloperDemo.Controller
             {
                 var transformData = _wheelModel.GetPositionAndRotation(totalRewardCount, i);
                 var rewardData = initialZoneModel.ZoneData.zoneRewardsDataSo.RewardModels[i];
-                var rewardItem = rewardFactory.CreateReward(rewardData);
+                var rewardItem = rewardFactory.CreateReward<WheelRewardItem>(rewardData, RewardItemType.Wheel);
                 rewardItem.transform.SetParent(_wheelView.RewardItemParent);
                 rewardItem.transform.localPosition = transformData.position;
                 rewardItem.transform.localRotation = transformData.rotation;

@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using GameDeveloperDemo.Controller;
+using GameDeveloperDemo.Model.Data;
+using GameDeveloperDemo.Model.Enum;
 using GameDeveloperDemo.View;
+using GameDeveloperDemo.View.RewardItem;
 using UnityEngine;
 
 namespace GameDeveloperDemo.Model

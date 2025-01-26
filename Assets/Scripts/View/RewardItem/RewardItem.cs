@@ -1,9 +1,9 @@
-using GameDeveloperDemo.Model;
+using GameDeveloperDemo.Model.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GameDeveloperDemo.View
+namespace GameDeveloperDemo.View.RewardItem
 {
     public abstract class RewardItem : MonoBehaviour
     {

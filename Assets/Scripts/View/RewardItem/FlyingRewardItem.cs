@@ -1,21 +1,10 @@
-
 using DG.Tweening;
 using UnityEngine;
 
-namespace GameDeveloperDemo.View
+namespace GameDeveloperDemo.View.RewardItem
 {
-    public class FlyingWheelRewardItem : RewardItem
+    public class FlyingRewardItem : RewardItem
     {
-        public void SetAmount(bool isFirstFlyingItem)
-        {
-            rewardText.text = isFirstFlyingItem ? $"x{ZoneRewardData.amount}" : "";
-        }
-
-        public void SetSprite(Sprite sprite)
-        {
-            rewardImage.sprite = sprite;
-        }
-        
         public Tween ScaleUp()
         {
             var targetScale = new Vector3(0.75f, 0.75f, 0.75f);
@@ -32,7 +21,6 @@ namespace GameDeveloperDemo.View
                 .SetEase(Ease.InBack)
                 .OnComplete(() =>
                 {
-                    Debug.Log("Reward animation completed.");
                     Destroy(gameObject);
                 });
 

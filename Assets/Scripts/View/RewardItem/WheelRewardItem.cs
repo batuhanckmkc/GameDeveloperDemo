@@ -1,8 +1,7 @@
-
-using GameDeveloperDemo.Model;
+using GameDeveloperDemo.Model.Enum;
 using UnityEngine;
 
-namespace GameDeveloperDemo.View
+namespace GameDeveloperDemo.View.RewardItem
 {
     public class WheelRewardItem : RewardItem
     {

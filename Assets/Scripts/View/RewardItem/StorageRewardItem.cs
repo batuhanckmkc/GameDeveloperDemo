@@ -1,5 +1,5 @@
 
-namespace GameDeveloperDemo.View
+namespace GameDeveloperDemo.View.RewardItem
 {
     public class StorageRewardItem : RewardItem
     {

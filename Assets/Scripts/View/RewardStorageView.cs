@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using GameDeveloperDemo.Utils;
+using GameDeveloperDemo.View.RewardItem;
 using UnityEngine;
 using UnityEngine.UI;
 

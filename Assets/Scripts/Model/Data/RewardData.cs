@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GameDeveloperDemo.Model
+namespace GameDeveloperDemo.Model.Data
 {
     [System.Serializable]
     public class RewardData

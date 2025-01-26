@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using GameDeveloperDemo.Model;
+using GameDeveloperDemo.Model.Data;
+using GameDeveloperDemo.Model.Enum;
 using UnityEngine;
 
 namespace GameDeveloperDemo.ScriptableObjects

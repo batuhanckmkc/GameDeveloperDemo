@@ -1,8 +1,11 @@
 using System.Collections.Generic;
-using GameDeveloperDemo.Factories;
+using GameDeveloperDemo.Controller.Factory;
 using GameDeveloperDemo.Model;
+using GameDeveloperDemo.Model.Data;
+using GameDeveloperDemo.Model.Enum;
 using GameDeveloperDemo.ScriptableObjects;
 using GameDeveloperDemo.View;
+using GameDeveloperDemo.View.RewardItem;
 using UnityEngine;
 
 namespace GameDeveloperDemo.Controller
@@ -10,15 +13,15 @@ namespace GameDeveloperDemo.Controller
     public class InventoryController : MonoBehaviour
     {
         private RewardsDataSO _rewardsDataSo;
-        private StorageRewardFactory _storageRewardFactory;
+        private RewardFactory _rewardFactory;
         private InventoryView _inventoryView;
         private InventoryModel _inventoryModel;
 
         private readonly Dictionary<RewardType, StorageRewardItem> _rewardItemViewDictionary = new();
-        public void Initialize(InventoryView inventoryView, StorageRewardFactory storageRewardFactory, RewardsDataSO rewardsDataSo, InventoryModel inventoryModel)
+        public void Initialize(InventoryView inventoryView, RewardFactory rewardFactory, RewardsDataSO rewardsDataSo, InventoryModel inventoryModel)
         {
             _inventoryView = inventoryView;
-            _storageRewardFactory = storageRewardFactory;
+            _rewardFactory = rewardFactory;
             _rewardsDataSo = rewardsDataSo;
             _inventoryModel = inventoryModel;
         }
@@ -59,7 +62,7 @@ namespace GameDeveloperDemo.Controller
                 }
                 else
                 {
-                    var newRewardItem = _storageRewardFactory.CreateReward(rewardData) as StorageRewardItem;
+                    var newRewardItem = _rewardFactory.CreateReward<StorageRewardItem>(rewardData, RewardItemType.Storage);
                     newRewardItem.InjectData(rewardData);
                     newRewardItem.SetRewardUI(_rewardsDataSo.GetSprite(rewardData.rewardConfigurationData.rewardType));
                     _inventoryView.AddRewardItem(newRewardItem);

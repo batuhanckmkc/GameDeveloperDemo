@@ -1,3 +1,4 @@
+using GameDeveloperDemo.Model.Enum;
 using GameDeveloperDemo.ScriptableObjects;
 using UnityEngine;
 

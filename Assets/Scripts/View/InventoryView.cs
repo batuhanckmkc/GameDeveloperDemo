@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using GameDeveloperDemo.View.RewardItem;
 using UnityEngine;
 
 namespace GameDeveloperDemo.View

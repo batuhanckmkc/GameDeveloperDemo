@@ -1,9 +1,9 @@
 using GameDeveloperDemo.Controller;
-using GameDeveloperDemo.Factories;
+using GameDeveloperDemo.Controller.Factory;
 using GameDeveloperDemo.Model;
+using GameDeveloperDemo.Model.Enum;
 using GameDeveloperDemo.ScriptableObjects;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace GameDeveloperDemo.Core
 {
@@ -16,7 +16,6 @@ namespace GameDeveloperDemo.Core
         [SerializeField] private WheelController wheelController;
         [SerializeField] private ZoneController zoneController;
         [SerializeField] private ReviveScreenController reviveScreenController;
-        [SerializeField] private RewardController rewardController;
         [SerializeField] private RewardStorageController rewardStorageController;
         [SerializeField] private InventoryController inventoryController;
 
@@ -27,22 +26,19 @@ namespace GameDeveloperDemo.Core
         [Header("Scriptable Objects")]
         [SerializeField] private ZoneDataSO zoneDataSo;
         [SerializeField] private RewardsDataSO rewardsDataSo;
+        [SerializeField] private RewardItemPrefabDataSO rewardItemPrefabDataSo;
 
         #endregion
         
         [Header("Prefabs")]
         [SerializeField] private GameViewManager gameViewManagerPrefab;
         
-        private WheelRewardFactory _wheelRewardFactory;
-        private FlyingRewardFactory _flyingRewardFactory;
-        private StorageRewardFactory _storageRewardFactory;
         private InventoryModel _inventoryModel;
+        private RewardFactory _rewardFactory;
         private void Awake()
         {
+            _rewardFactory = new RewardFactory(rewardItemPrefabDataSo);
             _inventoryModel = new InventoryModel();
-            _wheelRewardFactory = new WheelRewardFactory(rewardController.WheelRewardItemPrefab);
-            _flyingRewardFactory = new FlyingRewardFactory(rewardController.FlyingRewardItemPrefab);
-            _storageRewardFactory = new StorageRewardFactory(rewardController.StorageRewardItem);
             
             gameViewManager = Instantiate(gameViewManagerPrefab);
             InitializeControllers();
@@ -54,10 +50,10 @@ namespace GameDeveloperDemo.Core
             var initialZoneModel = new ZoneModel(startingZone);
             
             zoneController.Initialize(gameViewManager.ZoneBarView, zoneDataSo, startingZone, initialZoneModel);
-            wheelController.Initialize(_wheelRewardFactory, gameViewManager.WheelView, rewardsDataSo, initialZoneModel);
-            reviveScreenController.Initialize(gameViewManager.transform);
-            rewardStorageController.Initialize(_flyingRewardFactory, _storageRewardFactory, gameViewManager.RewardStorageView, rewardsDataSo, gameViewManager.WheelView.RewardItemSpawnTransform);
-            inventoryController.Initialize(gameViewManager.InventoryView, _storageRewardFactory, rewardsDataSo, _inventoryModel);
+            wheelController.Initialize(_rewardFactory, gameViewManager.WheelView, rewardsDataSo, initialZoneModel);
+            reviveScreenController.Initialize(gameViewManager.ReviveScreenView, gameViewManager.transform);
+            rewardStorageController.Initialize(_rewardFactory, gameViewManager.RewardStorageView, rewardsDataSo, gameViewManager.WheelView.RewardItemSpawnTransform);
+            inventoryController.Initialize(gameViewManager.InventoryView, _rewardFactory, rewardsDataSo, _inventoryModel);
         }
 
         private void OnDestroy()

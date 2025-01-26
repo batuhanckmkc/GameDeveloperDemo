@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using GameDeveloperDemo.Model;
+using GameDeveloperDemo.Model.Data;
 using GameDeveloperDemo.ScriptableObjects;
 using GameDeveloperDemo.Utils;
 using UnityEngine;
@@ -19,7 +20,7 @@ namespace GameDeveloperDemo.View
         public Transform RewardItemSpawnTransform => firstItemTransform;
         public Transform RewardItemParent => wheel.transform;
         private int _lastSliceIndex = -1;
-        private List<RewardItem> _rewardItems = new();
+        private List<RewardItem.RewardItem> _rewardItems = new();
         private RewardsDataSO _rewardsDataSo;
         
         #region Animation Values
@@ -85,7 +86,7 @@ namespace GameDeveloperDemo.View
             return _rewardItems[rewardIndex].ZoneRewardData;
         }
         
-        public void SetRewardItems(List<RewardItem> rewardItems)
+        public void SetRewardItems(List<RewardItem.RewardItem> rewardItems)
         {
             _rewardItems = rewardItems;
         }

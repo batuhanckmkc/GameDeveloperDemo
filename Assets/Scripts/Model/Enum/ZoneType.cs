@@ -1,4 +1,4 @@
-namespace GameDeveloperDemo.Model
+namespace GameDeveloperDemo.Model.Enum
 {
     public enum ZoneType
     {

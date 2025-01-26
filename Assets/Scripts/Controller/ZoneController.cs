@@ -1,5 +1,7 @@
 using System;
 using GameDeveloperDemo.Model;
+using GameDeveloperDemo.Model.Data;
+using GameDeveloperDemo.Model.Enum;
 using GameDeveloperDemo.ScriptableObjects;
 using GameDeveloperDemo.View;
 using UnityEngine;
@@ -67,7 +69,6 @@ namespace GameDeveloperDemo.Controller
                     _zoneModel.SetZoneData(zoneData);
                     _zoneBarView.ShiftNumbers(_zoneModel);
                     OnZoneChange?.Invoke(_zoneModel);
-                    Debug.Log("Update Zone" + zoneData.zoneType);
                     break;
                 }
             }

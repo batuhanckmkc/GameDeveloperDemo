@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
-using GameDeveloperDemo.Factories;
+using GameDeveloperDemo.Controller.Factory;
 using GameDeveloperDemo.Model;
+using GameDeveloperDemo.Model.Data;
+using GameDeveloperDemo.Model.Enum;
 using GameDeveloperDemo.ScriptableObjects;
 using GameDeveloperDemo.View;
+using GameDeveloperDemo.View.RewardItem;
 using UnityEngine;
 
 namespace GameDeveloperDemo.Controller
@@ -12,25 +15,18 @@ namespace GameDeveloperDemo.Controller
     public class RewardStorageController : MonoBehaviour
     {
         private RewardsDataSO _rewardsDataSo;
-        private FlyingRewardFactory _flyingRewardFactory;
-        private StorageRewardFactory _storageRewardFactory;
         private RewardStorageView _rewardStorageView;
         private Transform _rewardItemSpawnTransform;
-
+        private RewardFactory _rewardFactory;
+        
         private readonly Dictionary<RewardType, StorageRewardItem> _rewardStorageDictionary = new();
         public static event Action OnExit;
         public static event Action<Dictionary<RewardType, StorageRewardItem>> OnTakeRewards;
 
-        public void Initialize(
-            FlyingRewardFactory flyingRewardFactory,
-            StorageRewardFactory storageRewardFactory,
-            RewardStorageView rewardStorageView,
-            RewardsDataSO rewardsDataSo,
-            Transform rewardItemSpawnTransform)
+        public void Initialize(RewardFactory rewardFactory, RewardStorageView rewardStorageView, RewardsDataSO rewardsDataSo, Transform rewardItemSpawnTransform)
         {
+            _rewardFactory = rewardFactory;
             _rewardsDataSo = rewardsDataSo;
-            _storageRewardFactory = storageRewardFactory;
-            _flyingRewardFactory = flyingRewardFactory;
             _rewardStorageView = rewardStorageView;
             _rewardItemSpawnTransform = rewardItemSpawnTransform;
             _rewardStorageView.Initialize(OnExitButtonClicked);
@@ -73,7 +69,7 @@ namespace GameDeveloperDemo.Controller
                 return;
 
             UpdateOrCreateReward(reward);
-            var rewardVisualList = _flyingRewardFactory.CreateMultipleRewards(reward, GetRewardFlyAmount(reward));
+            var rewardVisualList = _rewardFactory.CreateMultipleRewards<FlyingRewardItem>(reward, RewardItemType.Fly,GetRewardFlyAmount(reward));
             AnimateFlyingRewards(rewardVisualList);
         }
 
@@ -86,7 +82,7 @@ namespace GameDeveloperDemo.Controller
             }
             else
             {
-                var newRewardItem = _storageRewardFactory.CreateReward(reward) as StorageRewardItem;
+                var newRewardItem = _rewardFactory.CreateReward<StorageRewardItem>(reward, RewardItemType.Storage);
                 newRewardItem.InjectData(reward);
                 newRewardItem.SetRewardUI(_rewardsDataSo.GetSprite(reward.rewardConfigurationData.rewardType));
                 _rewardStorageView.AddRewardItem(newRewardItem);
@@ -95,7 +91,7 @@ namespace GameDeveloperDemo.Controller
             }
         }
 
-        private void AnimateFlyingRewards(List<FlyingWheelRewardItem> rewardVisualList)
+        private void AnimateFlyingRewards(List<FlyingRewardItem> rewardVisualList)
         {
             float flyInterval = 0.15f;
             var sequence = DOTween.Sequence();
@@ -122,7 +118,6 @@ namespace GameDeveloperDemo.Controller
         {
             _rewardStorageView.ClearItems();
             _rewardStorageDictionary.Clear();
-            Debug.Log("All rewards and dictionary cleared.");
         }
         
         private void OnExitButtonClicked()

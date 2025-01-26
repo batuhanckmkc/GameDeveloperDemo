@@ -1,4 +1,6 @@
 using GameDeveloperDemo.Model;
+using GameDeveloperDemo.Model.Data;
+using GameDeveloperDemo.Model.Enum;
 using GameDeveloperDemo.View;
 using UnityEngine;
 
@@ -6,12 +8,13 @@ namespace GameDeveloperDemo.Controller
 {
     public class ReviveScreenController : MonoBehaviour
     {
-        [SerializeField] private ReviveScreenView reviveScreenViewPrefab;
+        private ReviveScreenView _reviveScreenViewPrefab;
         private ReviveScreenView _reviveScreenView;
         private Transform _reviveScreenSpawnTransform;
         private readonly int _reviveCost = 25;
-        public void Initialize(Transform reviveScreenSpawnTransform)
+        public void Initialize(ReviveScreenView reviveScreenViewPrefab, Transform reviveScreenSpawnTransform)
         {
+            _reviveScreenViewPrefab = reviveScreenViewPrefab;
             _reviveScreenSpawnTransform = reviveScreenSpawnTransform;
         }
         
@@ -50,7 +53,7 @@ namespace GameDeveloperDemo.Controller
         
         private void CreateGameOverView()
         {
-            _reviveScreenView ??= Instantiate(reviveScreenViewPrefab, _reviveScreenSpawnTransform);
+            _reviveScreenView ??= Instantiate(_reviveScreenViewPrefab, _reviveScreenSpawnTransform);
             _reviveScreenView.Initialize(_reviveCost);
             _reviveScreenView.Show();
             _reviveScreenView.UpdateViewAccordingEnoughGold(InventoryModel.Gold < _reviveCost);

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using GameDeveloperDemo.Model;
+using GameDeveloperDemo.Model.Data;
 using UnityEngine;
 
 namespace GameDeveloperDemo.ScriptableObjects
