@@ -49,7 +49,6 @@ namespace GameDeveloperDemo.Controller
         
         private void OnSpinButtonClicked()
         {
-            Debug.Log("Spin button clicked!");
             var sliceAngle = _wheelModel.GetSliceAngle();
             var finalAngle = _wheelModel.GetFinalAngle();
             OnSpinClick?.Invoke();
@@ -59,7 +58,6 @@ namespace GameDeveloperDemo.Controller
                 _wheelView.OpenSpinButton();
                 var stoppedItem = GetStoppedZoneItem(finalAngle);
                 OnSpinComplete?.Invoke(stoppedItem);
-                Debug.Log($"Wheel Stopped! ZoneRewardType: {stoppedItem.rewardConfigurationData.rewardType}, ZoneRewardAmount: {stoppedItem.amount}");
             });
         }
 

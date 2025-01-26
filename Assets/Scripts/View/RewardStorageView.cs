@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using GameDeveloperDemo.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,7 +24,18 @@ namespace GameDeveloperDemo.View
         {
             exitButton.onClick.RemoveListener(()=> onClickExit?.Invoke());
         }
+        
+        private void OnValidate()
+        {
+            AttachButtons();
+        }
 
+        private void AttachButtons()
+        {
+            if (exitButton == null)
+                exitButton = transform.Find(Constants.ButtonPrefix + "exit")?.GetComponent<Button>();
+        }
+        
         public void AddRewardItem(StorageRewardItem rewardItem)
         {
             rewardItem.transform.SetParent(container);

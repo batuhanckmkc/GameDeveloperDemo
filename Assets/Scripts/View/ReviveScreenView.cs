@@ -1,4 +1,5 @@
 using System;
+using GameDeveloperDemo.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,11 +9,11 @@ namespace GameDeveloperDemo.View
     public class ReviveScreenView : MonoBehaviour
     {
         [SerializeField] private GameObject root;
-        [SerializeField] private Button giveUpButton;
-        [SerializeField] private Button reviveButton;
         [SerializeField] private TextMeshProUGUI reviveCostText;
         [SerializeField] private TextMeshProUGUI notEnoughGoldText;
 
+        [SerializeField] private Button giveUpButton;
+        [SerializeField] private Button reviveButton;
         public static event Action<int> OnRevive;
         public static event Action OnGiveUp;
         private int _reviveCost;
@@ -21,11 +22,26 @@ namespace GameDeveloperDemo.View
             _reviveCost = reviveCost;
         }
         
+        private void OnValidate()
+        {
+            AttachButtons();
+        }
+
+        private void AttachButtons()
+        {
+            if (giveUpButton == null)
+                giveUpButton = transform.Find(Constants.ButtonPrefix + "give_up")?.GetComponent<Button>();
+            
+            if (reviveButton == null)
+                reviveButton = transform.Find(Constants.ButtonPrefix + "revive")?.GetComponent<Button>();
+        }
+        
         public void Show()
         {
             reviveCostText.SetText(_reviveCost.ToString());
             root.gameObject.SetActive(true);
         }
+        
 
         private void Hide()
         {

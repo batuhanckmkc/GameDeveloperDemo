@@ -13,8 +13,9 @@ namespace GameDeveloperDemo.View
     {
         [SerializeField] private Image wheel; 
         [SerializeField] private Image pointer;
-        [SerializeField] private SpinButton spinButton;
         [SerializeField] private Transform firstItemTransform;
+        [SerializeField] private Button spinButton;
+
         public Transform RewardItemSpawnTransform => firstItemTransform;
         public Transform RewardItemParent => wheel.transform;
         private int _lastSliceIndex = -1;
@@ -30,15 +31,26 @@ namespace GameDeveloperDemo.View
 
         public void Initialize(Action onSpinButtonClicked, RewardsDataSO rewardsDataSo)
         {
-            spinButton.RegisterListener(onSpinButtonClicked);
+            spinButton.onClick.AddListener(()=> onSpinButtonClicked?.Invoke());
             _rewardsDataSo = rewardsDataSo;
         }
 
         public void Deinitialize(Action onSpinButtonClicked)
         {
-            spinButton.UnregisterListener(onSpinButtonClicked);
+            spinButton.onClick.RemoveListener(()=> onSpinButtonClicked?.Invoke());
         }
-        
+
+        private void OnValidate()
+        {
+            AttachButtons();
+        }
+
+        private void AttachButtons()
+        {
+            if (spinButton == null)
+                spinButton = transform.Find(Constants.ButtonPrefix + "spin")?.GetComponent<Button>();
+        }
+
         public void RotateWheel(float sliceAngle, float finalAngle, float duration, Action onComplete)
         {
             wheel.transform.DORotate(new Vector3(0, 0, -finalAngle), duration, RotateMode.FastBeyond360)
@@ -108,7 +120,7 @@ namespace GameDeveloperDemo.View
             wheel.transform.rotation = Quaternion.identity;
         }
         
-        public void OpenSpinButton() => spinButton.button.interactable = true;
-        public void CloseSpinButton() => spinButton.button.interactable = false;
+        public void OpenSpinButton() => spinButton.interactable = true;
+        public void CloseSpinButton() => spinButton.interactable = false;
     }
 }
