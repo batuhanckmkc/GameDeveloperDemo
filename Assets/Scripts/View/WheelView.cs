@@ -24,7 +24,7 @@ namespace GameDeveloperDemo.View
         #region Animation Values
 
         private const float PointerMoveAngle = 45f;
-        private const float TargetFPS = 60f;
+        private const float PointerSpeed = 100f;
 
         #endregion
 
@@ -42,9 +42,13 @@ namespace GameDeveloperDemo.View
         public void RotateWheel(float sliceAngle, float finalAngle, float duration, Action onComplete)
         {
             wheel.transform.DORotate(new Vector3(0, 0, -finalAngle), duration, RotateMode.FastBeyond360)
-                .SetEase(Ease.OutCubic)
+                .SetEase(Ease.InOutQuart)
                 .OnUpdate(()=> AnimatePointer(sliceAngle, duration))
-                .OnComplete(()=> onComplete?.Invoke());
+                .OnComplete(()=>
+                {
+                    pointer.DOKill();
+                    onComplete?.Invoke();
+                });
         }
         
         private void AnimatePointer(float sliceAngle, float duration)
@@ -54,12 +58,12 @@ namespace GameDeveloperDemo.View
             if (currentSliceIndex != _lastSliceIndex)
             {
                 _lastSliceIndex = currentSliceIndex;
-                float speed = Mathf.Abs(sliceAngle / (duration * TargetFPS));
+                float speed = Mathf.Abs(sliceAngle / (duration * PointerSpeed));
                 pointer.transform.DORotate(new Vector3(0, 0, PointerMoveAngle), speed)
-                    .SetEase(Ease.OutCubic)
+                    .SetEase(Ease.OutCirc)
                     .OnComplete(() =>
                     {
-                        pointer.transform.DORotate(Vector3.zero, speed).SetEase(Ease.InCubic);
+                        pointer.transform.DORotate(Vector3.zero, speed).SetEase(Ease.OutSine);
                     });
             }
         }
