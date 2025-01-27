@@ -4,6 +4,7 @@ Bu README dosyasını, projeyi kısaca tanıtmak ve incelemenizi kolaylaştırma
 Projenin farklı çözünürlüklerdeki referans görselleri, oynanış videosu, temel ayarları ve içerikleri hakkında bilgileri aşağıda bulabilirsiniz. 
 
 Proje Genel Bilgisi 
+
 Projede oyunun ana ayarları, Scriptable Objects isimli klasörde bulunan ScriptableObject'ler üzerinden yönetilmektedir. Bu ayarlar şu şekilde yapılandırılmıştır:
 * Zone Data (SO): Her bir zone'a özel yapılandırma ayarlarını içerir.
 * Zone Reward Data (SO): Zone içerisindeki çark ödüllerini belirlemek için her zone için bir tane olacak şekilde kullanılır.
@@ -11,10 +12,12 @@ Projede oyunun ana ayarları, Scriptable Objects isimli klasörde bulunan Script
 * Rewards Item Prefabs Data (SO): Oyundaki görsel ödül item prefablerini içerir. 
 
 Ek Özellikler
+
 Proje gereksinimlerine ek olarak, oyuna görsel bir Inventory sistemi eklenmiştir. 
 Oyuncu, Safe Zone veya Super Zone'da Exit yaptığında, ödüller Reward Storage bölümünden Inventory bölümüne dinamik olarak transfer edilmektedir. 
 
 İletişim
+
 Herhangi bir geri bildirim ya da sorunuz olması durumunda benimle iletişime geçebilirsiniz. 
 Saygılarımla, Batuhan Çakmakçıoğlu
 
